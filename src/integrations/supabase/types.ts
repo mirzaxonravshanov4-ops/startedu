@@ -307,6 +307,9 @@ export type Database = {
           file_url: string | null
           id: string
           is_announcement: boolean
+          media_duration: number | null
+          media_type: string | null
+          media_url: string | null
           user_id: string
         }
         Insert: {
@@ -316,6 +319,9 @@ export type Database = {
           file_url?: string | null
           id?: string
           is_announcement?: boolean
+          media_duration?: number | null
+          media_type?: string | null
+          media_url?: string | null
           user_id: string
         }
         Update: {
@@ -325,6 +331,9 @@ export type Database = {
           file_url?: string | null
           id?: string
           is_announcement?: boolean
+          media_duration?: number | null
+          media_type?: string | null
+          media_url?: string | null
           user_id?: string
         }
         Relationships: [
@@ -805,6 +814,7 @@ export type Database = {
           explanation: string | null
           id: string
           image_url: string | null
+          section: string | null
           sort_order: number
           topic_id: string
           updated_at: string
@@ -817,6 +827,7 @@ export type Database = {
           explanation?: string | null
           id?: string
           image_url?: string | null
+          section?: string | null
           sort_order?: number
           topic_id: string
           updated_at?: string
@@ -829,6 +840,7 @@ export type Database = {
           explanation?: string | null
           id?: string
           image_url?: string | null
+          section?: string | null
           sort_order?: number
           topic_id?: string
           updated_at?: string
@@ -1450,6 +1462,9 @@ export type Database = {
         | "dtm"
         | "attestatsiya"
         | "boshqa"
+        | "mavzulashtirilgan"
+        | "olimpiada"
+        | "sat"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1587,6 +1602,9 @@ export const Constants = {
         "dtm",
         "attestatsiya",
         "boshqa",
+        "mavzulashtirilgan",
+        "olimpiada",
+        "sat",
       ],
     },
   },
