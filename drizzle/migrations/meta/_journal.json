@@ -1,5 +1,34 @@
 {
   "version": "7",
   "dialect": "postgresql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790206172026,
+      "tag": "0000_startedu_full_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790206444754,
+      "tag": "0001_startedu_missing_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790206475414,
+      "tag": "0002_startedu_columns_and_categories",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790206528556,
+      "tag": "0003_class_media_storage_policies",
+      "breakpoints": true
+    }
+  ]
 }
