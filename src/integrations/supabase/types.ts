@@ -167,6 +167,36 @@ export type Database = {
           },
         ]
       }
+      audit_logs: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          entity: string
+          entity_id: string | null
+          id: string
+          summary: string | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          entity: string
+          entity_id?: string | null
+          id?: string
+          summary?: string | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          entity?: string
+          entity_id?: string | null
+          id?: string
+          summary?: string | null
+        }
+        Relationships: []
+      }
       certificates: {
         Row: {
           attempt_id: string | null
@@ -350,6 +380,211 @@ export type Database = {
         }
         Relationships: []
       }
+      global_test_answers: {
+        Row: {
+          attempt_id: string
+          created_at: string
+          id: string
+          is_correct: boolean
+          question_id: string
+          selected_option_id: string | null
+        }
+        Insert: {
+          attempt_id: string
+          created_at?: string
+          id?: string
+          is_correct?: boolean
+          question_id: string
+          selected_option_id?: string | null
+        }
+        Update: {
+          attempt_id?: string
+          created_at?: string
+          id?: string
+          is_correct?: boolean
+          question_id?: string
+          selected_option_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "global_test_answers_attempt_id_fkey"
+            columns: ["attempt_id"]
+            isOneToOne: false
+            referencedRelation: "global_test_attempts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "global_test_answers_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "global_test_questions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "global_test_answers_selected_option_id_fkey"
+            columns: ["selected_option_id"]
+            isOneToOne: false
+            referencedRelation: "global_test_options"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      global_test_attempts: {
+        Row: {
+          completed_at: string | null
+          correct_count: number
+          created_at: string
+          id: string
+          score: number
+          started_at: string
+          test_id: string
+          time_spent_seconds: number | null
+          total_questions: number
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          correct_count?: number
+          created_at?: string
+          id?: string
+          score?: number
+          started_at?: string
+          test_id: string
+          time_spent_seconds?: number | null
+          total_questions?: number
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          correct_count?: number
+          created_at?: string
+          id?: string
+          score?: number
+          started_at?: string
+          test_id?: string
+          time_spent_seconds?: number | null
+          total_questions?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "global_test_attempts_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "global_tests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      global_test_options: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          is_correct: boolean
+          question_id: string
+          sort_order: number
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          is_correct?: boolean
+          question_id: string
+          sort_order?: number
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          is_correct?: boolean
+          question_id?: string
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "global_test_options_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "global_test_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      global_test_questions: {
+        Row: {
+          body: string
+          created_at: string
+          explanation: string | null
+          id: string
+          image_url: string | null
+          sort_order: number
+          test_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          explanation?: string | null
+          id?: string
+          image_url?: string | null
+          sort_order?: number
+          test_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          explanation?: string | null
+          id?: string
+          image_url?: string | null
+          sort_order?: number
+          test_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "global_test_questions_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "global_tests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      global_tests: {
+        Row: {
+          code: string
+          created_at: string
+          description: string | null
+          duration_minutes: number
+          id: string
+          is_active: boolean
+          owner_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number
+          id?: string
+          is_active?: boolean
+          owner_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number
+          id?: string
+          is_active?: boolean
+          owner_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       mock_exam_questions: {
         Row: {
           created_at: string
@@ -480,6 +715,7 @@ export type Database = {
           region: string | null
           school: string | null
           streak_days: number
+          subject: Database["public"]["Enums"]["subject_key"]
           updated_at: string
           username: string | null
           xp: number
@@ -499,6 +735,7 @@ export type Database = {
           region?: string | null
           school?: string | null
           streak_days?: number
+          subject?: Database["public"]["Enums"]["subject_key"]
           updated_at?: string
           username?: string | null
           xp?: number
@@ -518,6 +755,7 @@ export type Database = {
           region?: string | null
           school?: string | null
           streak_days?: number
+          subject?: Database["public"]["Enums"]["subject_key"]
           updated_at?: string
           username?: string | null
           xp?: number
@@ -777,6 +1015,45 @@ export type Database = {
           },
         ]
       }
+      user_devices: {
+        Row: {
+          browser: string | null
+          created_at: string
+          device_key: string
+          device_name: string
+          id: string
+          is_mobile: boolean
+          last_seen_at: string
+          os: string | null
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          browser?: string | null
+          created_at?: string
+          device_key: string
+          device_name?: string
+          id?: string
+          is_mobile?: boolean
+          last_seen_at?: string
+          os?: string | null
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          browser?: string | null
+          created_at?: string
+          device_key?: string
+          device_name?: string
+          id?: string
+          is_mobile?: boolean
+          last_seen_at?: string
+          os?: string | null
+          user_agent?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -905,12 +1182,193 @@ export type Database = {
           },
         ]
       }
+      written_tasks: {
+        Row: {
+          body: string
+          created_at: string
+          difficulty: Database["public"]["Enums"]["question_difficulty"]
+          expected_answer: string | null
+          id: string
+          image_url: string | null
+          is_published: boolean
+          max_score: number
+          mode: string
+          solution: string | null
+          sort_order: number
+          topic_id: string
+          updated_at: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          difficulty?: Database["public"]["Enums"]["question_difficulty"]
+          expected_answer?: string | null
+          id?: string
+          image_url?: string | null
+          is_published?: boolean
+          max_score?: number
+          mode?: string
+          solution?: string | null
+          sort_order?: number
+          topic_id: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          difficulty?: Database["public"]["Enums"]["question_difficulty"]
+          expected_answer?: string | null
+          id?: string
+          image_url?: string | null
+          is_published?: boolean
+          max_score?: number
+          mode?: string
+          solution?: string | null
+          sort_order?: number
+          topic_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "written_tasks_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      admin_list_profiles: {
+        Args: never
+        Returns: {
+          avatar_url: string | null
+          country: string | null
+          created_at: string
+          district: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          is_banned: boolean
+          last_active_at: string | null
+          level: number
+          phone: string | null
+          region: string | null
+          school: string | null
+          streak_days: number
+          subject: Database["public"]["Enums"]["subject_key"]
+          updated_at: string
+          username: string | null
+          xp: number
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "profiles"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      admin_set_banned: {
+        Args: { _banned: boolean; _user_id: string }
+        Returns: undefined
+      }
+      admin_test_overview: {
+        Args: never
+        Returns: {
+          attempts: number
+          avg_score: number
+          best_score: number
+          id: string
+          kind: string
+          last_attempt: string
+          title: string
+        }[]
+      }
+      admin_test_results: {
+        Args: { _topic_id: string }
+        Returns: {
+          attempt_id: string
+          completed_at: string
+          correct_count: number
+          created_at: string
+          full_name: string
+          score: number
+          time_spent_seconds: number
+          total_questions: number
+          user_id: string
+          username: string
+        }[]
+      }
       claim_admin_if_none: { Args: never; Returns: boolean }
+      get_my_profile: {
+        Args: never
+        Returns: {
+          avatar_url: string | null
+          country: string | null
+          created_at: string
+          district: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          is_banned: boolean
+          last_active_at: string | null
+          level: number
+          phone: string | null
+          region: string | null
+          school: string | null
+          streak_days: number
+          subject: Database["public"]["Enums"]["subject_key"]
+          updated_at: string
+          username: string | null
+          xp: number
+        }
+        SetofOptions: {
+          from: "*"
+          to: "profiles"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      global_test_by_code: {
+        Args: { _code: string }
+        Returns: {
+          description: string
+          duration_minutes: number
+          id: string
+          title: string
+        }[]
+      }
+      global_test_items_by_code: {
+        Args: { _code: string }
+        Returns: {
+          body: string
+          image_url: string
+          options: Json
+          question_id: string
+          sort_order: number
+        }[]
+      }
+      global_test_results: {
+        Args: { _test_id: string }
+        Returns: {
+          attempt_id: string
+          completed_at: string
+          correct_count: number
+          full_name: string
+          score: number
+          time_spent_seconds: number
+          total_questions: number
+          user_id: string
+        }[]
+      }
+      has_global_attempt: {
+        Args: { _test_id: string; _user_id: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -930,16 +1388,61 @@ export type Database = {
         Args: { _class_id: string; _user_id: string }
         Returns: boolean
       }
+      is_global_test_owner: {
+        Args: { _test_id: string; _user_id: string }
+        Returns: boolean
+      }
       join_class_by_code: { Args: { _code: string }; Returns: string }
+      leaderboard_rows: {
+        Args: never
+        Returns: {
+          full_name: string
+          id: string
+          level: number
+          same_country: boolean
+          same_region: boolean
+          same_school: boolean
+          streak_days: number
+          username: string
+          xp: number
+        }[]
+      }
       set_initial_role: {
         Args: { _role: Database["public"]["Enums"]["app_role"] }
         Returns: boolean
       }
+      submit_global_test: {
+        Args: { _answers: Json; _code: string; _time_spent_seconds: number }
+        Returns: string
+      }
+      submit_test_attempt: {
+        Args: {
+          _answers: Json
+          _mock_exam_id: string
+          _time_spent_seconds: number
+          _topic_id: string
+        }
+        Returns: string
+      }
       touch_last_active: { Args: never; Returns: undefined }
+      verify_certificate: {
+        Args: { _code: string }
+        Returns: {
+          code: string
+          full_name: string
+          issued_at: string
+          percent: number
+          score: number
+          subtitle: string
+          title: string
+          total_questions: number
+        }[]
+      }
     }
     Enums: {
       app_role: "admin" | "teacher" | "student" | "premium"
       question_difficulty: "easy" | "medium" | "hard"
+      subject_key: "matematika" | "fizika" | "kimyo" | "biologiya" | "tarix"
       topic_category:
         | "algebra"
         | "geometriya"
@@ -1076,6 +1579,7 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "teacher", "student", "premium"],
       question_difficulty: ["easy", "medium", "hard"],
+      subject_key: ["matematika", "fizika", "kimyo", "biologiya", "tarix"],
       topic_category: [
         "algebra",
         "geometriya",

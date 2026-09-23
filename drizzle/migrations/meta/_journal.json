@@ -8,6 +8,13 @@
       "when": 1790206172026,
       "tag": "0000_startedu_full_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790206444754,
+      "tag": "0001_startedu_missing_schema",
+      "breakpoints": true
     }
   ]
 }
