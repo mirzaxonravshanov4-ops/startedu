@@ -10,33 +10,594 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as AuthenticatedSubjectRouteRouteImport } from './routes/_authenticated/$subject/route'
+import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as CertificateCodeRouteImport } from './routes/certificate.$code'
+import { Route as AuthenticatedSubjectAiTwinRouteImport } from './routes/_authenticated/$subject/ai-twin'
+import { Route as AuthenticatedSubjectAiUstozRouteImport } from './routes/_authenticated/$subject/ai-ustoz'
+import { Route as AuthenticatedSubjectAttestatsiyaRouteImport } from './routes/_authenticated/$subject/attestatsiya'
+import { Route as AuthenticatedSubjectCertificatesRouteImport } from './routes/_authenticated/$subject/certificates'
+import { Route as AuthenticatedSubjectDashboardRouteImport } from './routes/_authenticated/$subject/dashboard'
+import { Route as AuthenticatedSubjectDtmRouteImport } from './routes/_authenticated/$subject/dtm'
+import { Route as AuthenticatedSubjectLabRouteImport } from './routes/_authenticated/$subject/lab'
+import { Route as AuthenticatedSubjectLeaderboardRouteImport } from './routes/_authenticated/$subject/leaderboard'
+import { Route as AuthenticatedSubjectMilliySertifikatRouteImport } from './routes/_authenticated/$subject/milliy-sertifikat'
+import { Route as AuthenticatedSubjectOlimpiadaRouteImport } from './routes/_authenticated/$subject/olimpiada'
+import { Route as AuthenticatedSubjectResultsRouteImport } from './routes/_authenticated/$subject/results'
+import { Route as AuthenticatedSubjectSatRouteImport } from './routes/_authenticated/$subject/sat'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminAiGeneratorRouteImport } from './routes/_authenticated/admin/ai-generator'
+import { Route as AuthenticatedAdminAuditRouteImport } from './routes/_authenticated/admin/audit'
+import { Route as AuthenticatedAdminImportRouteImport } from './routes/_authenticated/admin/import'
+import { Route as AuthenticatedAdminModulesRouteImport } from './routes/_authenticated/admin/modules'
+import { Route as AuthenticatedAdminQuestionsRouteImport } from './routes/_authenticated/admin/questions'
+import { Route as AuthenticatedAdminResultsRouteImport } from './routes/_authenticated/admin/results'
+import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
+import { Route as AuthenticatedAdminTopicsRouteImport } from './routes/_authenticated/admin/topics'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
+import { Route as AuthenticatedAdminVideosRouteImport } from './routes/_authenticated/admin/videos'
+import { Route as AuthenticatedSubjectAttemptsIdRouteImport } from './routes/_authenticated/$subject/attempts/$id'
+import { Route as AuthenticatedSubjectClassesIndexRouteImport } from './routes/_authenticated/$subject/classes/index'
+import { Route as AuthenticatedSubjectClassesIdRouteImport } from './routes/_authenticated/$subject/classes/$id'
+import { Route as AuthenticatedSubjectGlobalIndexRouteImport } from './routes/_authenticated/$subject/global/index'
+import { Route as AuthenticatedSubjectTopicsIndexRouteImport } from './routes/_authenticated/$subject/topics/index'
+import { Route as AuthenticatedSubjectTopicsSlugRouteImport } from './routes/_authenticated/$subject/topics/$slug'
+import { Route as AuthenticatedSubjectVideosIndexRouteImport } from './routes/_authenticated/$subject/videos/index'
+import { Route as AuthenticatedSubjectVideosIdRouteImport } from './routes/_authenticated/$subject/videos/$id'
+import { Route as AuthenticatedAdminDirectionKeyRouteImport } from './routes/_authenticated/admin/direction.$key'
+import { Route as AuthenticatedSubjectGlobalManageIdRouteImport } from './routes/_authenticated/$subject/global/manage.$id'
+import { Route as AuthenticatedSubjectGlobalResultAttemptIdRouteImport } from './routes/_authenticated/$subject/global/result.$attemptId'
+import { Route as AuthenticatedSubjectGlobalTCodeRouteImport } from './routes/_authenticated/$subject/global/t.$code'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedSubjectRouteRoute =
+  AuthenticatedSubjectRouteRouteImport.update({
+    id: '/$subject',
+    path: '/$subject',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const CertificateCodeRoute = CertificateCodeRouteImport.update({
+  id: '/certificate/$code',
+  path: '/certificate/$code',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedSubjectAiTwinRoute =
+  AuthenticatedSubjectAiTwinRouteImport.update({
+    id: '/ai-twin',
+    path: '/ai-twin',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectAiUstozRoute =
+  AuthenticatedSubjectAiUstozRouteImport.update({
+    id: '/ai-ustoz',
+    path: '/ai-ustoz',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectAttestatsiyaRoute =
+  AuthenticatedSubjectAttestatsiyaRouteImport.update({
+    id: '/attestatsiya',
+    path: '/attestatsiya',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectCertificatesRoute =
+  AuthenticatedSubjectCertificatesRouteImport.update({
+    id: '/certificates',
+    path: '/certificates',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectDashboardRoute =
+  AuthenticatedSubjectDashboardRouteImport.update({
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectDtmRoute = AuthenticatedSubjectDtmRouteImport.update({
+  id: '/dtm',
+  path: '/dtm',
+  getParentRoute: () => AuthenticatedSubjectRouteRoute,
+} as any)
+const AuthenticatedSubjectLabRoute = AuthenticatedSubjectLabRouteImport.update({
+  id: '/lab',
+  path: '/lab',
+  getParentRoute: () => AuthenticatedSubjectRouteRoute,
+} as any)
+const AuthenticatedSubjectLeaderboardRoute =
+  AuthenticatedSubjectLeaderboardRouteImport.update({
+    id: '/leaderboard',
+    path: '/leaderboard',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectMilliySertifikatRoute =
+  AuthenticatedSubjectMilliySertifikatRouteImport.update({
+    id: '/milliy-sertifikat',
+    path: '/milliy-sertifikat',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectOlimpiadaRoute =
+  AuthenticatedSubjectOlimpiadaRouteImport.update({
+    id: '/olimpiada',
+    path: '/olimpiada',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectResultsRoute =
+  AuthenticatedSubjectResultsRouteImport.update({
+    id: '/results',
+    path: '/results',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectSatRoute = AuthenticatedSubjectSatRouteImport.update({
+  id: '/sat',
+  path: '/sat',
+  getParentRoute: () => AuthenticatedSubjectRouteRoute,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
+const AuthenticatedAdminAiGeneratorRoute =
+  AuthenticatedAdminAiGeneratorRouteImport.update({
+    id: '/ai-generator',
+    path: '/ai-generator',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminAuditRoute = AuthenticatedAdminAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
+const AuthenticatedAdminImportRoute =
+  AuthenticatedAdminImportRouteImport.update({
+    id: '/import',
+    path: '/import',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminModulesRoute =
+  AuthenticatedAdminModulesRouteImport.update({
+    id: '/modules',
+    path: '/modules',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminQuestionsRoute =
+  AuthenticatedAdminQuestionsRouteImport.update({
+    id: '/questions',
+    path: '/questions',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminResultsRoute =
+  AuthenticatedAdminResultsRouteImport.update({
+    id: '/results',
+    path: '/results',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminSettingsRoute =
+  AuthenticatedAdminSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminTopicsRoute =
+  AuthenticatedAdminTopicsRouteImport.update({
+    id: '/topics',
+    path: '/topics',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
+const AuthenticatedAdminVideosRoute =
+  AuthenticatedAdminVideosRouteImport.update({
+    id: '/videos',
+    path: '/videos',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedSubjectAttemptsIdRoute =
+  AuthenticatedSubjectAttemptsIdRouteImport.update({
+    id: '/attempts/$id',
+    path: '/attempts/$id',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectClassesIndexRoute =
+  AuthenticatedSubjectClassesIndexRouteImport.update({
+    id: '/classes/',
+    path: '/classes/',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectClassesIdRoute =
+  AuthenticatedSubjectClassesIdRouteImport.update({
+    id: '/classes/$id',
+    path: '/classes/$id',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectGlobalIndexRoute =
+  AuthenticatedSubjectGlobalIndexRouteImport.update({
+    id: '/global/',
+    path: '/global/',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectTopicsIndexRoute =
+  AuthenticatedSubjectTopicsIndexRouteImport.update({
+    id: '/topics/',
+    path: '/topics/',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectTopicsSlugRoute =
+  AuthenticatedSubjectTopicsSlugRouteImport.update({
+    id: '/topics/$slug',
+    path: '/topics/$slug',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectVideosIndexRoute =
+  AuthenticatedSubjectVideosIndexRouteImport.update({
+    id: '/videos/',
+    path: '/videos/',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectVideosIdRoute =
+  AuthenticatedSubjectVideosIdRouteImport.update({
+    id: '/videos/$id',
+    path: '/videos/$id',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedAdminDirectionKeyRoute =
+  AuthenticatedAdminDirectionKeyRouteImport.update({
+    id: '/direction/$key',
+    path: '/direction/$key',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedSubjectGlobalManageIdRoute =
+  AuthenticatedSubjectGlobalManageIdRouteImport.update({
+    id: '/global/manage/$id',
+    path: '/global/manage/$id',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectGlobalResultAttemptIdRoute =
+  AuthenticatedSubjectGlobalResultAttemptIdRouteImport.update({
+    id: '/global/result/$attemptId',
+    path: '/global/result/$attemptId',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
+const AuthenticatedSubjectGlobalTCodeRoute =
+  AuthenticatedSubjectGlobalTCodeRouteImport.update({
+    id: '/global/t/$code',
+    path: '/global/t/$code',
+    getParentRoute: () => AuthenticatedSubjectRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/faq': typeof FaqRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/$subject': typeof AuthenticatedSubjectRouteRouteWithChildren
+  '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/profile': typeof AuthenticatedProfileRoute
+  '/certificate/$code': typeof CertificateCodeRoute
+  '/$subject/ai-twin': typeof AuthenticatedSubjectAiTwinRoute
+  '/$subject/ai-ustoz': typeof AuthenticatedSubjectAiUstozRoute
+  '/$subject/attestatsiya': typeof AuthenticatedSubjectAttestatsiyaRoute
+  '/$subject/certificates': typeof AuthenticatedSubjectCertificatesRoute
+  '/$subject/dashboard': typeof AuthenticatedSubjectDashboardRoute
+  '/$subject/dtm': typeof AuthenticatedSubjectDtmRoute
+  '/$subject/lab': typeof AuthenticatedSubjectLabRoute
+  '/$subject/leaderboard': typeof AuthenticatedSubjectLeaderboardRoute
+  '/$subject/milliy-sertifikat': typeof AuthenticatedSubjectMilliySertifikatRoute
+  '/$subject/olimpiada': typeof AuthenticatedSubjectOlimpiadaRoute
+  '/$subject/results': typeof AuthenticatedSubjectResultsRoute
+  '/$subject/sat': typeof AuthenticatedSubjectSatRoute
+  '/admin/ai-generator': typeof AuthenticatedAdminAiGeneratorRoute
+  '/admin/audit': typeof AuthenticatedAdminAuditRoute
+  '/admin/import': typeof AuthenticatedAdminImportRoute
+  '/admin/modules': typeof AuthenticatedAdminModulesRoute
+  '/admin/questions': typeof AuthenticatedAdminQuestionsRoute
+  '/admin/results': typeof AuthenticatedAdminResultsRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/topics': typeof AuthenticatedAdminTopicsRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/admin/videos': typeof AuthenticatedAdminVideosRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/$subject/attempts/$id': typeof AuthenticatedSubjectAttemptsIdRoute
+  '/$subject/classes/$id': typeof AuthenticatedSubjectClassesIdRoute
+  '/$subject/topics/$slug': typeof AuthenticatedSubjectTopicsSlugRoute
+  '/$subject/videos/$id': typeof AuthenticatedSubjectVideosIdRoute
+  '/admin/direction/$key': typeof AuthenticatedAdminDirectionKeyRoute
+  '/$subject/classes/': typeof AuthenticatedSubjectClassesIndexRoute
+  '/$subject/global/': typeof AuthenticatedSubjectGlobalIndexRoute
+  '/$subject/topics/': typeof AuthenticatedSubjectTopicsIndexRoute
+  '/$subject/videos/': typeof AuthenticatedSubjectVideosIndexRoute
+  '/$subject/global/manage/$id': typeof AuthenticatedSubjectGlobalManageIdRoute
+  '/$subject/global/result/$attemptId': typeof AuthenticatedSubjectGlobalResultAttemptIdRoute
+  '/$subject/global/t/$code': typeof AuthenticatedSubjectGlobalTCodeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/faq': typeof FaqRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/$subject': typeof AuthenticatedSubjectRouteRouteWithChildren
+  '/profile': typeof AuthenticatedProfileRoute
+  '/certificate/$code': typeof CertificateCodeRoute
+  '/$subject/ai-twin': typeof AuthenticatedSubjectAiTwinRoute
+  '/$subject/ai-ustoz': typeof AuthenticatedSubjectAiUstozRoute
+  '/$subject/attestatsiya': typeof AuthenticatedSubjectAttestatsiyaRoute
+  '/$subject/certificates': typeof AuthenticatedSubjectCertificatesRoute
+  '/$subject/dashboard': typeof AuthenticatedSubjectDashboardRoute
+  '/$subject/dtm': typeof AuthenticatedSubjectDtmRoute
+  '/$subject/lab': typeof AuthenticatedSubjectLabRoute
+  '/$subject/leaderboard': typeof AuthenticatedSubjectLeaderboardRoute
+  '/$subject/milliy-sertifikat': typeof AuthenticatedSubjectMilliySertifikatRoute
+  '/$subject/olimpiada': typeof AuthenticatedSubjectOlimpiadaRoute
+  '/$subject/results': typeof AuthenticatedSubjectResultsRoute
+  '/$subject/sat': typeof AuthenticatedSubjectSatRoute
+  '/admin/ai-generator': typeof AuthenticatedAdminAiGeneratorRoute
+  '/admin/audit': typeof AuthenticatedAdminAuditRoute
+  '/admin/import': typeof AuthenticatedAdminImportRoute
+  '/admin/modules': typeof AuthenticatedAdminModulesRoute
+  '/admin/questions': typeof AuthenticatedAdminQuestionsRoute
+  '/admin/results': typeof AuthenticatedAdminResultsRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/topics': typeof AuthenticatedAdminTopicsRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/admin/videos': typeof AuthenticatedAdminVideosRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/$subject/attempts/$id': typeof AuthenticatedSubjectAttemptsIdRoute
+  '/$subject/classes/$id': typeof AuthenticatedSubjectClassesIdRoute
+  '/$subject/topics/$slug': typeof AuthenticatedSubjectTopicsSlugRoute
+  '/$subject/videos/$id': typeof AuthenticatedSubjectVideosIdRoute
+  '/admin/direction/$key': typeof AuthenticatedAdminDirectionKeyRoute
+  '/$subject/classes': typeof AuthenticatedSubjectClassesIndexRoute
+  '/$subject/global': typeof AuthenticatedSubjectGlobalIndexRoute
+  '/$subject/topics': typeof AuthenticatedSubjectTopicsIndexRoute
+  '/$subject/videos': typeof AuthenticatedSubjectVideosIndexRoute
+  '/$subject/global/manage/$id': typeof AuthenticatedSubjectGlobalManageIdRoute
+  '/$subject/global/result/$attemptId': typeof AuthenticatedSubjectGlobalResultAttemptIdRoute
+  '/$subject/global/t/$code': typeof AuthenticatedSubjectGlobalTCodeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/faq': typeof FaqRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/_authenticated/$subject': typeof AuthenticatedSubjectRouteRouteWithChildren
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/certificate/$code': typeof CertificateCodeRoute
+  '/_authenticated/$subject/ai-twin': typeof AuthenticatedSubjectAiTwinRoute
+  '/_authenticated/$subject/ai-ustoz': typeof AuthenticatedSubjectAiUstozRoute
+  '/_authenticated/$subject/attestatsiya': typeof AuthenticatedSubjectAttestatsiyaRoute
+  '/_authenticated/$subject/certificates': typeof AuthenticatedSubjectCertificatesRoute
+  '/_authenticated/$subject/dashboard': typeof AuthenticatedSubjectDashboardRoute
+  '/_authenticated/$subject/dtm': typeof AuthenticatedSubjectDtmRoute
+  '/_authenticated/$subject/lab': typeof AuthenticatedSubjectLabRoute
+  '/_authenticated/$subject/leaderboard': typeof AuthenticatedSubjectLeaderboardRoute
+  '/_authenticated/$subject/milliy-sertifikat': typeof AuthenticatedSubjectMilliySertifikatRoute
+  '/_authenticated/$subject/olimpiada': typeof AuthenticatedSubjectOlimpiadaRoute
+  '/_authenticated/$subject/results': typeof AuthenticatedSubjectResultsRoute
+  '/_authenticated/$subject/sat': typeof AuthenticatedSubjectSatRoute
+  '/_authenticated/admin/ai-generator': typeof AuthenticatedAdminAiGeneratorRoute
+  '/_authenticated/admin/audit': typeof AuthenticatedAdminAuditRoute
+  '/_authenticated/admin/import': typeof AuthenticatedAdminImportRoute
+  '/_authenticated/admin/modules': typeof AuthenticatedAdminModulesRoute
+  '/_authenticated/admin/questions': typeof AuthenticatedAdminQuestionsRoute
+  '/_authenticated/admin/results': typeof AuthenticatedAdminResultsRoute
+  '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/_authenticated/admin/topics': typeof AuthenticatedAdminTopicsRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/_authenticated/admin/videos': typeof AuthenticatedAdminVideosRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/$subject/attempts/$id': typeof AuthenticatedSubjectAttemptsIdRoute
+  '/_authenticated/$subject/classes/$id': typeof AuthenticatedSubjectClassesIdRoute
+  '/_authenticated/$subject/topics/$slug': typeof AuthenticatedSubjectTopicsSlugRoute
+  '/_authenticated/$subject/videos/$id': typeof AuthenticatedSubjectVideosIdRoute
+  '/_authenticated/admin/direction/$key': typeof AuthenticatedAdminDirectionKeyRoute
+  '/_authenticated/$subject/classes/': typeof AuthenticatedSubjectClassesIndexRoute
+  '/_authenticated/$subject/global/': typeof AuthenticatedSubjectGlobalIndexRoute
+  '/_authenticated/$subject/topics/': typeof AuthenticatedSubjectTopicsIndexRoute
+  '/_authenticated/$subject/videos/': typeof AuthenticatedSubjectVideosIndexRoute
+  '/_authenticated/$subject/global/manage/$id': typeof AuthenticatedSubjectGlobalManageIdRoute
+  '/_authenticated/$subject/global/result/$attemptId': typeof AuthenticatedSubjectGlobalResultAttemptIdRoute
+  '/_authenticated/$subject/global/t/$code': typeof AuthenticatedSubjectGlobalTCodeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/faq'
+    | '/sitemap.xml'
+    | '/$subject'
+    | '/admin'
+    | '/profile'
+    | '/certificate/$code'
+    | '/$subject/ai-twin'
+    | '/$subject/ai-ustoz'
+    | '/$subject/attestatsiya'
+    | '/$subject/certificates'
+    | '/$subject/dashboard'
+    | '/$subject/dtm'
+    | '/$subject/lab'
+    | '/$subject/leaderboard'
+    | '/$subject/milliy-sertifikat'
+    | '/$subject/olimpiada'
+    | '/$subject/results'
+    | '/$subject/sat'
+    | '/admin/ai-generator'
+    | '/admin/audit'
+    | '/admin/import'
+    | '/admin/modules'
+    | '/admin/questions'
+    | '/admin/results'
+    | '/admin/settings'
+    | '/admin/topics'
+    | '/admin/users'
+    | '/admin/videos'
+    | '/admin/'
+    | '/$subject/attempts/$id'
+    | '/$subject/classes/$id'
+    | '/$subject/topics/$slug'
+    | '/$subject/videos/$id'
+    | '/admin/direction/$key'
+    | '/$subject/classes/'
+    | '/$subject/global/'
+    | '/$subject/topics/'
+    | '/$subject/videos/'
+    | '/$subject/global/manage/$id'
+    | '/$subject/global/result/$attemptId'
+    | '/$subject/global/t/$code'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/faq'
+    | '/sitemap.xml'
+    | '/$subject'
+    | '/profile'
+    | '/certificate/$code'
+    | '/$subject/ai-twin'
+    | '/$subject/ai-ustoz'
+    | '/$subject/attestatsiya'
+    | '/$subject/certificates'
+    | '/$subject/dashboard'
+    | '/$subject/dtm'
+    | '/$subject/lab'
+    | '/$subject/leaderboard'
+    | '/$subject/milliy-sertifikat'
+    | '/$subject/olimpiada'
+    | '/$subject/results'
+    | '/$subject/sat'
+    | '/admin/ai-generator'
+    | '/admin/audit'
+    | '/admin/import'
+    | '/admin/modules'
+    | '/admin/questions'
+    | '/admin/results'
+    | '/admin/settings'
+    | '/admin/topics'
+    | '/admin/users'
+    | '/admin/videos'
+    | '/admin'
+    | '/$subject/attempts/$id'
+    | '/$subject/classes/$id'
+    | '/$subject/topics/$slug'
+    | '/$subject/videos/$id'
+    | '/admin/direction/$key'
+    | '/$subject/classes'
+    | '/$subject/global'
+    | '/$subject/topics'
+    | '/$subject/videos'
+    | '/$subject/global/manage/$id'
+    | '/$subject/global/result/$attemptId'
+    | '/$subject/global/t/$code'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/about'
+    | '/auth'
+    | '/faq'
+    | '/sitemap.xml'
+    | '/_authenticated/$subject'
+    | '/_authenticated/admin'
+    | '/_authenticated/profile'
+    | '/certificate/$code'
+    | '/_authenticated/$subject/ai-twin'
+    | '/_authenticated/$subject/ai-ustoz'
+    | '/_authenticated/$subject/attestatsiya'
+    | '/_authenticated/$subject/certificates'
+    | '/_authenticated/$subject/dashboard'
+    | '/_authenticated/$subject/dtm'
+    | '/_authenticated/$subject/lab'
+    | '/_authenticated/$subject/leaderboard'
+    | '/_authenticated/$subject/milliy-sertifikat'
+    | '/_authenticated/$subject/olimpiada'
+    | '/_authenticated/$subject/results'
+    | '/_authenticated/$subject/sat'
+    | '/_authenticated/admin/ai-generator'
+    | '/_authenticated/admin/audit'
+    | '/_authenticated/admin/import'
+    | '/_authenticated/admin/modules'
+    | '/_authenticated/admin/questions'
+    | '/_authenticated/admin/results'
+    | '/_authenticated/admin/settings'
+    | '/_authenticated/admin/topics'
+    | '/_authenticated/admin/users'
+    | '/_authenticated/admin/videos'
+    | '/_authenticated/admin/'
+    | '/_authenticated/$subject/attempts/$id'
+    | '/_authenticated/$subject/classes/$id'
+    | '/_authenticated/$subject/topics/$slug'
+    | '/_authenticated/$subject/videos/$id'
+    | '/_authenticated/admin/direction/$key'
+    | '/_authenticated/$subject/classes/'
+    | '/_authenticated/$subject/global/'
+    | '/_authenticated/$subject/topics/'
+    | '/_authenticated/$subject/videos/'
+    | '/_authenticated/$subject/global/manage/$id'
+    | '/_authenticated/$subject/global/result/$attemptId'
+    | '/_authenticated/$subject/global/t/$code'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
+  FaqRoute: typeof FaqRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  CertificateCodeRoute: typeof CertificateCodeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +609,440 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/$subject': {
+      id: '/_authenticated/$subject'
+      path: '/$subject'
+      fullPath: '/$subject'
+      preLoaderRoute: typeof AuthenticatedSubjectRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/certificate/$code': {
+      id: '/certificate/$code'
+      path: '/certificate/$code'
+      fullPath: '/certificate/$code'
+      preLoaderRoute: typeof CertificateCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/$subject/ai-twin': {
+      id: '/_authenticated/$subject/ai-twin'
+      path: '/ai-twin'
+      fullPath: '/$subject/ai-twin'
+      preLoaderRoute: typeof AuthenticatedSubjectAiTwinRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/ai-ustoz': {
+      id: '/_authenticated/$subject/ai-ustoz'
+      path: '/ai-ustoz'
+      fullPath: '/$subject/ai-ustoz'
+      preLoaderRoute: typeof AuthenticatedSubjectAiUstozRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/attestatsiya': {
+      id: '/_authenticated/$subject/attestatsiya'
+      path: '/attestatsiya'
+      fullPath: '/$subject/attestatsiya'
+      preLoaderRoute: typeof AuthenticatedSubjectAttestatsiyaRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/certificates': {
+      id: '/_authenticated/$subject/certificates'
+      path: '/certificates'
+      fullPath: '/$subject/certificates'
+      preLoaderRoute: typeof AuthenticatedSubjectCertificatesRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/dashboard': {
+      id: '/_authenticated/$subject/dashboard'
+      path: '/dashboard'
+      fullPath: '/$subject/dashboard'
+      preLoaderRoute: typeof AuthenticatedSubjectDashboardRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/dtm': {
+      id: '/_authenticated/$subject/dtm'
+      path: '/dtm'
+      fullPath: '/$subject/dtm'
+      preLoaderRoute: typeof AuthenticatedSubjectDtmRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/lab': {
+      id: '/_authenticated/$subject/lab'
+      path: '/lab'
+      fullPath: '/$subject/lab'
+      preLoaderRoute: typeof AuthenticatedSubjectLabRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/leaderboard': {
+      id: '/_authenticated/$subject/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/$subject/leaderboard'
+      preLoaderRoute: typeof AuthenticatedSubjectLeaderboardRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/milliy-sertifikat': {
+      id: '/_authenticated/$subject/milliy-sertifikat'
+      path: '/milliy-sertifikat'
+      fullPath: '/$subject/milliy-sertifikat'
+      preLoaderRoute: typeof AuthenticatedSubjectMilliySertifikatRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/olimpiada': {
+      id: '/_authenticated/$subject/olimpiada'
+      path: '/olimpiada'
+      fullPath: '/$subject/olimpiada'
+      preLoaderRoute: typeof AuthenticatedSubjectOlimpiadaRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/results': {
+      id: '/_authenticated/$subject/results'
+      path: '/results'
+      fullPath: '/$subject/results'
+      preLoaderRoute: typeof AuthenticatedSubjectResultsRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/sat': {
+      id: '/_authenticated/$subject/sat'
+      path: '/sat'
+      fullPath: '/$subject/sat'
+      preLoaderRoute: typeof AuthenticatedSubjectSatRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/ai-generator': {
+      id: '/_authenticated/admin/ai-generator'
+      path: '/ai-generator'
+      fullPath: '/admin/ai-generator'
+      preLoaderRoute: typeof AuthenticatedAdminAiGeneratorRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/audit': {
+      id: '/_authenticated/admin/audit'
+      path: '/audit'
+      fullPath: '/admin/audit'
+      preLoaderRoute: typeof AuthenticatedAdminAuditRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/import': {
+      id: '/_authenticated/admin/import'
+      path: '/import'
+      fullPath: '/admin/import'
+      preLoaderRoute: typeof AuthenticatedAdminImportRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/modules': {
+      id: '/_authenticated/admin/modules'
+      path: '/modules'
+      fullPath: '/admin/modules'
+      preLoaderRoute: typeof AuthenticatedAdminModulesRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/questions': {
+      id: '/_authenticated/admin/questions'
+      path: '/questions'
+      fullPath: '/admin/questions'
+      preLoaderRoute: typeof AuthenticatedAdminQuestionsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/results': {
+      id: '/_authenticated/admin/results'
+      path: '/results'
+      fullPath: '/admin/results'
+      preLoaderRoute: typeof AuthenticatedAdminResultsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/settings': {
+      id: '/_authenticated/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/topics': {
+      id: '/_authenticated/admin/topics'
+      path: '/topics'
+      fullPath: '/admin/topics'
+      preLoaderRoute: typeof AuthenticatedAdminTopicsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/videos': {
+      id: '/_authenticated/admin/videos'
+      path: '/videos'
+      fullPath: '/admin/videos'
+      preLoaderRoute: typeof AuthenticatedAdminVideosRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/$subject/attempts/$id': {
+      id: '/_authenticated/$subject/attempts/$id'
+      path: '/attempts/$id'
+      fullPath: '/$subject/attempts/$id'
+      preLoaderRoute: typeof AuthenticatedSubjectAttemptsIdRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/classes/': {
+      id: '/_authenticated/$subject/classes/'
+      path: '/classes'
+      fullPath: '/$subject/classes/'
+      preLoaderRoute: typeof AuthenticatedSubjectClassesIndexRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/classes/$id': {
+      id: '/_authenticated/$subject/classes/$id'
+      path: '/classes/$id'
+      fullPath: '/$subject/classes/$id'
+      preLoaderRoute: typeof AuthenticatedSubjectClassesIdRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/global/': {
+      id: '/_authenticated/$subject/global/'
+      path: '/global'
+      fullPath: '/$subject/global/'
+      preLoaderRoute: typeof AuthenticatedSubjectGlobalIndexRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/topics/': {
+      id: '/_authenticated/$subject/topics/'
+      path: '/topics'
+      fullPath: '/$subject/topics/'
+      preLoaderRoute: typeof AuthenticatedSubjectTopicsIndexRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/topics/$slug': {
+      id: '/_authenticated/$subject/topics/$slug'
+      path: '/topics/$slug'
+      fullPath: '/$subject/topics/$slug'
+      preLoaderRoute: typeof AuthenticatedSubjectTopicsSlugRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/videos/': {
+      id: '/_authenticated/$subject/videos/'
+      path: '/videos'
+      fullPath: '/$subject/videos/'
+      preLoaderRoute: typeof AuthenticatedSubjectVideosIndexRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/videos/$id': {
+      id: '/_authenticated/$subject/videos/$id'
+      path: '/videos/$id'
+      fullPath: '/$subject/videos/$id'
+      preLoaderRoute: typeof AuthenticatedSubjectVideosIdRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/admin/direction/$key': {
+      id: '/_authenticated/admin/direction/$key'
+      path: '/direction/$key'
+      fullPath: '/admin/direction/$key'
+      preLoaderRoute: typeof AuthenticatedAdminDirectionKeyRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/$subject/global/manage/$id': {
+      id: '/_authenticated/$subject/global/manage/$id'
+      path: '/global/manage/$id'
+      fullPath: '/$subject/global/manage/$id'
+      preLoaderRoute: typeof AuthenticatedSubjectGlobalManageIdRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/global/result/$attemptId': {
+      id: '/_authenticated/$subject/global/result/$attemptId'
+      path: '/global/result/$attemptId'
+      fullPath: '/$subject/global/result/$attemptId'
+      preLoaderRoute: typeof AuthenticatedSubjectGlobalResultAttemptIdRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
+    '/_authenticated/$subject/global/t/$code': {
+      id: '/_authenticated/$subject/global/t/$code'
+      path: '/global/t/$code'
+      fullPath: '/$subject/global/t/$code'
+      preLoaderRoute: typeof AuthenticatedSubjectGlobalTCodeRouteImport
+      parentRoute: typeof AuthenticatedSubjectRouteRoute
+    }
   }
 }
 
+interface AuthenticatedSubjectRouteRouteChildren {
+  AuthenticatedSubjectAiTwinRoute: typeof AuthenticatedSubjectAiTwinRoute
+  AuthenticatedSubjectAiUstozRoute: typeof AuthenticatedSubjectAiUstozRoute
+  AuthenticatedSubjectAttestatsiyaRoute: typeof AuthenticatedSubjectAttestatsiyaRoute
+  AuthenticatedSubjectCertificatesRoute: typeof AuthenticatedSubjectCertificatesRoute
+  AuthenticatedSubjectDashboardRoute: typeof AuthenticatedSubjectDashboardRoute
+  AuthenticatedSubjectDtmRoute: typeof AuthenticatedSubjectDtmRoute
+  AuthenticatedSubjectLabRoute: typeof AuthenticatedSubjectLabRoute
+  AuthenticatedSubjectLeaderboardRoute: typeof AuthenticatedSubjectLeaderboardRoute
+  AuthenticatedSubjectMilliySertifikatRoute: typeof AuthenticatedSubjectMilliySertifikatRoute
+  AuthenticatedSubjectOlimpiadaRoute: typeof AuthenticatedSubjectOlimpiadaRoute
+  AuthenticatedSubjectResultsRoute: typeof AuthenticatedSubjectResultsRoute
+  AuthenticatedSubjectSatRoute: typeof AuthenticatedSubjectSatRoute
+  AuthenticatedSubjectAttemptsIdRoute: typeof AuthenticatedSubjectAttemptsIdRoute
+  AuthenticatedSubjectClassesIdRoute: typeof AuthenticatedSubjectClassesIdRoute
+  AuthenticatedSubjectTopicsSlugRoute: typeof AuthenticatedSubjectTopicsSlugRoute
+  AuthenticatedSubjectVideosIdRoute: typeof AuthenticatedSubjectVideosIdRoute
+  AuthenticatedSubjectClassesIndexRoute: typeof AuthenticatedSubjectClassesIndexRoute
+  AuthenticatedSubjectGlobalIndexRoute: typeof AuthenticatedSubjectGlobalIndexRoute
+  AuthenticatedSubjectTopicsIndexRoute: typeof AuthenticatedSubjectTopicsIndexRoute
+  AuthenticatedSubjectVideosIndexRoute: typeof AuthenticatedSubjectVideosIndexRoute
+  AuthenticatedSubjectGlobalManageIdRoute: typeof AuthenticatedSubjectGlobalManageIdRoute
+  AuthenticatedSubjectGlobalResultAttemptIdRoute: typeof AuthenticatedSubjectGlobalResultAttemptIdRoute
+  AuthenticatedSubjectGlobalTCodeRoute: typeof AuthenticatedSubjectGlobalTCodeRoute
+}
+
+const AuthenticatedSubjectRouteRouteChildren: AuthenticatedSubjectRouteRouteChildren =
+  {
+    AuthenticatedSubjectAiTwinRoute: AuthenticatedSubjectAiTwinRoute,
+    AuthenticatedSubjectAiUstozRoute: AuthenticatedSubjectAiUstozRoute,
+    AuthenticatedSubjectAttestatsiyaRoute:
+      AuthenticatedSubjectAttestatsiyaRoute,
+    AuthenticatedSubjectCertificatesRoute:
+      AuthenticatedSubjectCertificatesRoute,
+    AuthenticatedSubjectDashboardRoute: AuthenticatedSubjectDashboardRoute,
+    AuthenticatedSubjectDtmRoute: AuthenticatedSubjectDtmRoute,
+    AuthenticatedSubjectLabRoute: AuthenticatedSubjectLabRoute,
+    AuthenticatedSubjectLeaderboardRoute: AuthenticatedSubjectLeaderboardRoute,
+    AuthenticatedSubjectMilliySertifikatRoute:
+      AuthenticatedSubjectMilliySertifikatRoute,
+    AuthenticatedSubjectOlimpiadaRoute: AuthenticatedSubjectOlimpiadaRoute,
+    AuthenticatedSubjectResultsRoute: AuthenticatedSubjectResultsRoute,
+    AuthenticatedSubjectSatRoute: AuthenticatedSubjectSatRoute,
+    AuthenticatedSubjectAttemptsIdRoute: AuthenticatedSubjectAttemptsIdRoute,
+    AuthenticatedSubjectClassesIdRoute: AuthenticatedSubjectClassesIdRoute,
+    AuthenticatedSubjectTopicsSlugRoute: AuthenticatedSubjectTopicsSlugRoute,
+    AuthenticatedSubjectVideosIdRoute: AuthenticatedSubjectVideosIdRoute,
+    AuthenticatedSubjectClassesIndexRoute:
+      AuthenticatedSubjectClassesIndexRoute,
+    AuthenticatedSubjectGlobalIndexRoute: AuthenticatedSubjectGlobalIndexRoute,
+    AuthenticatedSubjectTopicsIndexRoute: AuthenticatedSubjectTopicsIndexRoute,
+    AuthenticatedSubjectVideosIndexRoute: AuthenticatedSubjectVideosIndexRoute,
+    AuthenticatedSubjectGlobalManageIdRoute:
+      AuthenticatedSubjectGlobalManageIdRoute,
+    AuthenticatedSubjectGlobalResultAttemptIdRoute:
+      AuthenticatedSubjectGlobalResultAttemptIdRoute,
+    AuthenticatedSubjectGlobalTCodeRoute: AuthenticatedSubjectGlobalTCodeRoute,
+  }
+
+const AuthenticatedSubjectRouteRouteWithChildren =
+  AuthenticatedSubjectRouteRoute._addFileChildren(
+    AuthenticatedSubjectRouteRouteChildren,
+  )
+
+interface AuthenticatedAdminRouteRouteChildren {
+  AuthenticatedAdminAiGeneratorRoute: typeof AuthenticatedAdminAiGeneratorRoute
+  AuthenticatedAdminAuditRoute: typeof AuthenticatedAdminAuditRoute
+  AuthenticatedAdminImportRoute: typeof AuthenticatedAdminImportRoute
+  AuthenticatedAdminModulesRoute: typeof AuthenticatedAdminModulesRoute
+  AuthenticatedAdminQuestionsRoute: typeof AuthenticatedAdminQuestionsRoute
+  AuthenticatedAdminResultsRoute: typeof AuthenticatedAdminResultsRoute
+  AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
+  AuthenticatedAdminTopicsRoute: typeof AuthenticatedAdminTopicsRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
+  AuthenticatedAdminVideosRoute: typeof AuthenticatedAdminVideosRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedAdminDirectionKeyRoute: typeof AuthenticatedAdminDirectionKeyRoute
+}
+
+const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
+  {
+    AuthenticatedAdminAiGeneratorRoute: AuthenticatedAdminAiGeneratorRoute,
+    AuthenticatedAdminAuditRoute: AuthenticatedAdminAuditRoute,
+    AuthenticatedAdminImportRoute: AuthenticatedAdminImportRoute,
+    AuthenticatedAdminModulesRoute: AuthenticatedAdminModulesRoute,
+    AuthenticatedAdminQuestionsRoute: AuthenticatedAdminQuestionsRoute,
+    AuthenticatedAdminResultsRoute: AuthenticatedAdminResultsRoute,
+    AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
+    AuthenticatedAdminTopicsRoute: AuthenticatedAdminTopicsRoute,
+    AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
+    AuthenticatedAdminVideosRoute: AuthenticatedAdminVideosRoute,
+    AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+    AuthenticatedAdminDirectionKeyRoute: AuthenticatedAdminDirectionKeyRoute,
+  }
+
+const AuthenticatedAdminRouteRouteWithChildren =
+  AuthenticatedAdminRouteRoute._addFileChildren(
+    AuthenticatedAdminRouteRouteChildren,
+  )
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedSubjectRouteRoute: typeof AuthenticatedSubjectRouteRouteWithChildren
+  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedSubjectRouteRoute: AuthenticatedSubjectRouteRouteWithChildren,
+  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
+  FaqRoute: FaqRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  CertificateCodeRoute: CertificateCodeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
