@@ -97,7 +97,7 @@ function cleanMath(input: string): string {
   if (left > right) s += "\\right.".repeat(left - right);
   if (right > left) s = "\\left.".repeat(right - left) + s;
   // Stray "$" left inside math and bare "\\" at the end
-  s = s.replace(/\$/g, "").replace(/\\+$/, "");
+  s = s.replace(/(?<!\\)\$/g, "").replace(/\\+$/, "");
   // Balance braces
   const open = (s.match(/(?<!\\)\{/g) ?? []).length;
   const close = (s.match(/(?<!\\)\}/g) ?? []).length;
