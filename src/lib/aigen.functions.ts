@@ -14,10 +14,12 @@ const InputSchema = z.object({
   kind: z.enum(["test", "written"]).default("test"),
   language: z.enum(["uz", "en"]).default("uz"),
   difficulty: z.enum(["easy", "medium", "hard", "mixed"]).default("mixed"),
-  count: z.number().int().min(1).max(50).default(10),
+  count: z.number().int().min(1).max(100).default(10),
   topicTitle: z.string().max(200).optional(),
   section: z.enum(["matematika", "kasbiy", "pedagogika"]).optional(),
-  avoid: z.array(z.string().max(400)).max(40).default([]),
+  avoid: z.array(z.string().max(400)).max(60).default([]),
+  /** Text extracted from an uploaded file — questions are taken/adapted from it. */
+  sourceText: z.string().max(120_000).optional(),
 });
 
 const SECTION_TEXT: Record<string, string> = {
@@ -50,29 +52,26 @@ export const generateContent = createServerFn({ method: "POST" })
     const system =
       data.kind === "test" ? testSystemPrompt(data.language) : writtenSystemPrompt(data.language);
 
-    // Katta so'rovlarni bo'laklarga bo'lamiz — bir javobda 8 tadan ko'p savol sifatsiz/uzilgan chiqadi.
-    // Bo'laklar parallel yuboriladi, aks holda 50 ta savol so'rovi vaqt chegarasidan oshib ketadi.
-    const CHUNK = 8;
-    const chunks: number[] = [];
-    let left = data.count;
-    while (left > 0) {
-      chunks.push(Math.min(CHUNK, left));
-      left -= Math.min(CHUNK, left);
-    }
-
+    const CHUNK = 10;
+    const CONCURRENCY = 3;
+    const MAX_ROUNDS = 6;
     const baseAvoid = data.avoid.slice(-60);
     let lastError = "";
+    const src = data.sourceText?.trim();
 
-    const buildPrompt = (want: number, variant: number) =>
+    const buildPrompt = (want: number, variant: number, extraAvoid: string[]) =>
       [
-        `Soni: ${want} ta.`,
+        `Soni: aynan ${want} ta.`,
         data.topicTitle ? `Mavzu: ${data.topicTitle}.` : "",
         data.section ? SECTION_TEXT[data.section]! : "",
         DIFF_TEXT[data.difficulty] ?? "",
         `Admin buyrug'i: ${data.instruction}`,
-        `Variant #${variant}: bu to'plam boshqa to'plamlardan farq qilsin — turli sonlar, kontekst va yechim usullaridan foydalaning.`,
-        baseAvoid.length
-          ? `Quyidagilar allaqachon mavjud — takrorlamang:\n${baseAvoid
+        src
+          ? `MANBA FAYL berilgan. Avvalo fayldagi savollarni aynan olib (xatolarini tuzatib, LaTeX ga o'tkazib) qaytaring; fayldagi savollar tugasa yoki kamlik qilsa, ular uslubida va shu mavzuda yangilarini tuzing. To'g'ri javob ko'rsatilmagan bo'lsa, o'zingiz yechib belgilang.\n\nMANBA:\n${src.slice(0, 60_000)}`
+          : `Variant #${variant}: bu to'plam boshqa to'plamlardan farq qilsin — turli sonlar, kontekst va yechim usullaridan foydalaning.`,
+        [...baseAvoid, ...extraAvoid].length
+          ? `Quyidagilar allaqachon mavjud — takrorlamang:\n${[...baseAvoid, ...extraAvoid]
+              .slice(-60)
               .map((a) => `- ${a.slice(0, 160)}`)
               .join("\n")}`
           : "",
@@ -80,35 +79,33 @@ export const generateContent = createServerFn({ method: "POST" })
         .filter(Boolean)
         .join("\n");
 
-    async function runChunk(want: number, variant: number): Promise<string> {
-      for (let attempt = 0; attempt < 2; attempt += 1) {
+    async function runChunk(want: number, variant: number, extraAvoid: string[]): Promise<string> {
+      for (let attempt = 0; attempt < 4; attempt += 1) {
         try {
           return await chatCompletion({
             messages: [
               { role: "system", content: system },
-              { role: "user", content: buildPrompt(want, variant) },
+              { role: "user", content: buildPrompt(want, variant, extraAvoid) },
             ],
             response_format: { type: "json_object" },
-            max_tokens: 8000,
+            max_tokens: 16000,
           });
         } catch (e) {
           lastError = e instanceof Error ? e.message : "AI xatosi";
-          if (attempt === 1) return "";
-          await new Promise((r) => setTimeout(r, 1200));
+          // Faqat vaqtinchalik xatolarda (chegara / server) kutib qayta urinamiz
+          if (/kreditlari|kaliti|sozlanmagan/.test(lastError)) return "";
+          await new Promise((r) => setTimeout(r, 1500 * 2 ** attempt + Math.random() * 500));
         }
       }
       return "";
     }
-
-    const raws = await Promise.all(chunks.map((want, i) => runChunk(want, i + 1)));
-
     const seen = new Set<string>();
     const norm = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
     const questions: ReturnType<typeof parseGeneratedTests> = [];
     const tasks: ReturnType<typeof parseGeneratedWritten> = [];
 
-    for (const raw of raws) {
-      if (!raw) continue;
+    const addRaw = (raw: string) => {
+      if (!raw) return;
       if (data.kind === "test") {
         for (const q of parseGeneratedTests(raw)) {
           const k = norm(q.body);
@@ -124,6 +121,23 @@ export const generateContent = createServerFn({ method: "POST" })
           tasks.push(t);
         }
       }
+    };
+    const have = () => (data.kind === "test" ? questions.length : tasks.length);
+
+    // Kerakli songa yetguncha bo'laklab so'raymiz (bir vaqtda 3 tadan — chegaraga urilmaslik uchun)
+    let variant = 1;
+    for (let round = 0; round < MAX_ROUNDS && have() < data.count; round += 1) {
+      const need = data.count - have();
+      const chunks: number[] = [];
+      for (let left = need; left > 0; left -= CHUNK) chunks.push(Math.min(CHUNK, left));
+      const recent = (data.kind === "test" ? questions : tasks).map((x) => x.body).slice(-30);
+      for (let i = 0; i < chunks.length; i += CONCURRENCY) {
+        const batch = chunks.slice(i, i + CONCURRENCY);
+        const raws = await Promise.all(batch.map((want) => runChunk(want, variant++, recent)));
+        raws.forEach(addRaw);
+        if (have() >= data.count) break;
+      }
+      if (lastError && /kreditlari|kaliti|sozlanmagan/.test(lastError)) break;
     }
 
     if (data.kind === "test") {

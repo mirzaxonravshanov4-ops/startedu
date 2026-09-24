@@ -1,6 +1,7 @@
 import "katex/dist/katex.min.css";
 import katex from "katex";
 import { useMemo } from "react";
+import { repairLatexString } from "@/lib/latex-fix";
 
 /**
  * Renders text containing LaTeX. Supports $...$, $$...$$, \( ... \) and \[ ... \].
@@ -61,7 +62,7 @@ function render(math: string, display: boolean): string {
 
 /** Normalizes delimiters and escaping problems coming from AI output / the database. */
 function normalizeSource(input: string): string {
-  let s = input;
+  let s = repairLatexString(input);
   // Literal "\\n" / "\\t" produced by double-encoded JSON
   s = s.replace(/\\r\\n|\\n/g, "\n").replace(/\\t/g, "\t");
   // \[ ... \] -> $$ ... $$   and   \( ... \) -> $ ... $
@@ -95,6 +96,8 @@ function cleanMath(input: string): string {
   const right = (s.match(/\\right/g) ?? []).length;
   if (left > right) s += "\\right.".repeat(left - right);
   if (right > left) s = "\\left.".repeat(right - left) + s;
+  // Stray "$" left inside math and bare "\\" at the end
+  s = s.replace(/(?<!\\)\$/g, "").replace(/\\+$/, "");
   // Balance braces
   const open = (s.match(/(?<!\\)\{/g) ?? []).length;
   const close = (s.match(/(?<!\\)\}/g) ?? []).length;
