@@ -35,6 +35,7 @@ export type SceneStep = {
 };
 
 export type Scene = {
+  difficulty?: string;
   title: string;
   summary: string;
   answer?: string;
