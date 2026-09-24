@@ -3,10 +3,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Bot, CheckCircle2, Loader2, Plus, Save, Sparkles, Trash2 } from "lucide-react";
+import { Bot, CheckCircle2, FileUp, Loader2, Plus, Save, Sparkles, Trash2, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { LatexText } from "@/components/latex-text";
 import { generateContent } from "@/lib/aigen.functions";
+import { extractFileText } from "@/lib/import.functions";
 import type { ImportedQuestion } from "@/lib/import-prompt";
 import type { GeneratedWritten } from "@/lib/aigen-prompt";
 
@@ -46,6 +47,25 @@ function AiGenerator() {
   const [section, setSection] = useState("");
   const [items, setItems] = useState<ImportedQuestion[]>([]);
   const [tasks, setTasks] = useState<GeneratedWritten[]>([]);
+  const [sourceText, setSourceText] = useState("");
+  const [fileName, setFileName] = useState("");
+  const extractFn = useServerFn(extractFileText);
+  const upload = useMutation({
+    mutationFn: async (file: File) => {
+      if (file.size > 8 * 1024 * 1024) throw new Error("Fayl hajmi 8MB dan kichik bo'lsin");
+      const buf = new Uint8Array(await file.arrayBuffer());
+      let bin = "";
+      for (let i = 0; i < buf.length; i += 0x8000) bin += String.fromCharCode(...buf.subarray(i, i + 0x8000));
+      const res = await extractFn({ data: { fileName: file.name, base64: btoa(bin) } });
+      return { text: res.text, name: file.name };
+    },
+    onSuccess: ({ text, name }) => {
+      setSourceText(text);
+      setFileName(name);
+      toast.success(`Fayl o'qildi: ${text.length} belgi`);
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
 
   const { data: topics } = useQuery({
     queryKey: ["admin-topics-lite"],
@@ -74,6 +94,7 @@ function AiGenerator() {
           topicTitle,
           section: (section || undefined) as "matematika" | "kasbiy" | "pedagogika" | undefined,
           avoid: append ? avoid.slice(-30) : [],
+          ...(sourceText ? { sourceText } : {}),
         },
       });
       return { res, append };
@@ -242,9 +263,9 @@ function AiGenerator() {
             <input
               type="number"
               min={1}
-              max={50}
+              max={100}
               value={count}
-              onChange={(e) => setCount(Math.max(1, Math.min(50, Number(e.target.value) || 1)))}
+              onChange={(e) => setCount(Math.max(1, Math.min(100, Number(e.target.value) || 1)))}
               className="rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground"
             />
           </label>
@@ -277,6 +298,36 @@ function AiGenerator() {
               ))}
             </select>
           </label>
+        </div>
+
+        <div className="mt-4 rounded-xl border border-dashed border-border p-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <label className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-border px-3 py-2 text-sm hover:bg-secondary">
+              {upload.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileUp className="h-4 w-4" />}
+              Fayl yuklash (.docx, .pdf, .tex, .txt)
+              <input
+                type="file"
+                accept=".docx,.pdf,.tex,.txt,.md"
+                className="hidden"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) upload.mutate(f);
+                  e.target.value = "";
+                }}
+              />
+            </label>
+            {fileName && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-1 text-xs">
+                {fileName}
+                <button aria-label="Faylni olib tashlash" onClick={() => { setFileName(""); setSourceText(""); }}>
+                  <X className="h-3 w-3" />
+                </button>
+              </span>
+            )}
+          </div>
+          <p className="mt-2 text-xs text-muted-foreground">
+            Fayl yuklansa, AI undagi savollarni o'qib, tanlangan mavzu uchun tayyorlaydi. Keyin "Tasdiqlash" bilan mavzuga qo'shasiz.
+          </p>
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2">
