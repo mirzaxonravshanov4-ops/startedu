@@ -188,7 +188,7 @@ function Hero() {
           </div>
         </div>
 
-        <div className="relative">
+        <div className="relative float-idle">
           <div className="absolute -inset-6 rounded-[2rem] bg-primary opacity-30 blur-3xl" aria-hidden />
           <div className="relative overflow-hidden rounded-[1.5rem] border border-border glass">
             <img

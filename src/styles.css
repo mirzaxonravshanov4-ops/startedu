@@ -224,3 +224,31 @@ body.exam-mode {
   overflow-x: hidden;
   user-select: none;
 }
+
+/* ---------- Floating reveal ---------- */
+.float-pre {
+  opacity: 0;
+  transform: translateY(28px) scale(0.985);
+  filter: blur(6px);
+}
+.float-pre.float-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--float-delay, 0ms),
+    transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) var(--float-delay, 0ms),
+    filter 0.9s ease var(--float-delay, 0ms);
+}
+@keyframes float-idle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@utility float-idle {
+  animation: float-idle 6s ease-in-out infinite;
+}
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  .float-idle { animation: none; }
+  html { scroll-behavior: auto; }
+}
