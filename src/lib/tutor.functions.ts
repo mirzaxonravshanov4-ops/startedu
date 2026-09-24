@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { chatCompletion } from "@/lib/ai-gateway";
+import { withAiQuota } from "@/lib/ai-quota.server";
 
 const TutorSchema = z.object({
   subject: z.string().max(60).default("matematika"),
@@ -20,7 +21,7 @@ const TutorSchema = z.object({
 export const askTutor = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => TutorSchema.parse(data))
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => withAiQuota(context.supabase, async () => {
     const system = [
       `Sen StartEdu platformasining AI ustozisan. Fan: ${data.subject}.`,
       "O'zbek tilida, qisqa va tushunarli javob ber. O'quvchiga yo'l-yo'riq ko'rsat,",
@@ -32,7 +33,7 @@ export const askTutor = createServerFn({ method: "POST" })
       messages: [{ role: "system", content: system }, ...data.messages],
       max_tokens: 1200,
     });
-  });
+  }));
 
 const TwinSchema = z.object({
   subject: z.string().max(60).default("matematika"),
@@ -45,7 +46,7 @@ const TwinSchema = z.object({
 export const generateTwinPlan = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => TwinSchema.parse(data))
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => withAiQuota(context.supabase, async () => {
     const prompt = [
       `Sen StartEdu platformasining AI Twin (shaxsiy repetitor) xizmatisan.`,
       `O'quvchi ma'lumotlari: fan — ${data.subject}, daraja — ${data.level},`,
@@ -60,4 +61,4 @@ export const generateTwinPlan = createServerFn({ method: "POST" })
       messages: [{ role: "user", content: prompt }],
       max_tokens: 2500,
     });
-  });
+  }));
