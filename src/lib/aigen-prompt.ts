@@ -1,4 +1,5 @@
 import type { ImportedQuestion } from "@/lib/import-prompt";
+import { LATEX_JSON_RULES, parseModelJson } from "@/lib/latex-fix";
 
 export type GeneratedWritten = {
   body: string;
@@ -30,7 +31,10 @@ Rules:
 - Every question must be solvable from its text alone — no images or figures.
 - "explanation" is a short worked solution (1-4 sentences) in the same language.
 - No duplicated or paraphrased questions inside one response.
-- Respect the requested difficulty and the admin's instruction exactly.`;
+- Respect the requested difficulty and the admin's instruction exactly.
+- Return EXACTLY the requested number of questions — never fewer.
+
+${LATEX_JSON_RULES}`;
 }
 
 export function writtenSystemPrompt(lang: GenLanguage): string {
@@ -46,19 +50,14 @@ Rules:
 - "solution" is a complete step-by-step solution with LaTeX.
 - All math in LaTeX: inline $...$, display $$...$$.
 - max_score between 1 and 20.
-- No images or figures; the task must be solvable from its text.`;
+- No images or figures; the task must be solvable from its text.
+- Return EXACTLY the requested number of tasks — never fewer.
+
+${LATEX_JSON_RULES}`;
 }
 
 function jsonSlice(raw: string): unknown {
-  const text = raw.trim().replace(/^```(?:json)?/i, "").replace(/```$/, "");
-  const start = text.indexOf("{");
-  const end = text.lastIndexOf("}");
-  if (start < 0 || end <= start) return null;
-  try {
-    return JSON.parse(text.slice(start, end + 1));
-  } catch {
-    return null;
-  }
+  return parseModelJson(raw);
 }
 
 export function parseGeneratedTests(raw: string): ImportedQuestion[] {

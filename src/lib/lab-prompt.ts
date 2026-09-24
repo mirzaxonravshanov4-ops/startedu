@@ -1,4 +1,5 @@
 import type { Scene } from "@/lib/scene";
+import { LATEX_JSON_RULES, parseModelJson } from "@/lib/latex-fix";
 
 /** Topics available in the visual laboratory. */
 export const LAB_TOPICS: { key: string; title: string; sample: string }[] = [
@@ -69,17 +70,11 @@ QAT'IY QOIDALAR:
   * o'rta — 5 dan 8 gacha kadr;
   * qiyin — 9 dan 11 gacha kadr.
 - Oxirgi qadamda javob vizual ta'kidlansin.
-- Koordinatalar "view" oralig'ida bo'lsin. Barcha sonlar — son (string emas).`;
+- Koordinatalar "view" oralig'ida bo'lsin. Barcha sonlar — son (string emas).
+
+${LATEX_JSON_RULES}`;
 
 /** Extracts a Scene object from a model reply that may contain code fences. */
 export function extractJson(raw: string): Scene | null {
-  const text = raw.trim().replace(/^```(?:json)?/i, "").replace(/```$/, "");
-  const start = text.indexOf("{");
-  const end = text.lastIndexOf("}");
-  if (start < 0 || end <= start) return null;
-  try {
-    return JSON.parse(text.slice(start, end + 1)) as Scene;
-  } catch {
-    return null;
-  }
+  return parseModelJson(raw) as Scene | null;
 }

@@ -1,3 +1,5 @@
+import { LATEX_JSON_RULES, parseModelJson } from "@/lib/latex-fix";
+
 export type ImportedQuestion = {
   body: string;
   explanation?: string;
@@ -17,20 +19,14 @@ QAT'IY:
 - Agar to'g'ri javob ko'rsatilmagan bo'lsa, masalani o'zingiz yechib, to'g'ri variantni belgilang.
 - Har bir savolda 2-6 variant bo'lsin va aynan bittasi to'g'ri bo'lsin.
 - explanation — qisqa (1-3 gap) o'zbekcha izoh, LaTeX bilan.
-- Matndagi savol soni so'ralganidan kam bo'lsa, bor savollarnigina qaytaring; yangi savol o'ylab topmang.`;
+- Matndagi savol soni so'ralganidan kam bo'lsa, bor savollarnigina qaytaring; yangi savol o'ylab topmang.
+
+${LATEX_JSON_RULES}`;
 
 /** Parses and normalizes the model's JSON reply. */
 export function parseImportJson(raw: string): ImportedQuestion[] {
-  const text = raw.trim().replace(/^```(?:json)?/i, "").replace(/```$/, "");
-  const start = text.indexOf("{");
-  const end = text.lastIndexOf("}");
-  if (start < 0 || end <= start) return [];
-  let obj: unknown;
-  try {
-    obj = JSON.parse(text.slice(start, end + 1));
-  } catch {
-    return [];
-  }
+  const obj = parseModelJson(raw);
+  if (!obj) return [];
   const list = (obj as { questions?: unknown[] })?.questions;
   if (!Array.isArray(list)) return [];
 
