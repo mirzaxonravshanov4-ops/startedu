@@ -1,3 +1,4 @@
+import { FloatReveal } from "@/components/float-reveal";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -148,6 +149,7 @@ function RootComponent() {
           <Outlet />
         </AppShell>
         <AppToaster />
+        <FloatReveal />
       </ThemeProvider>
     </QueryClientProvider>
   );
