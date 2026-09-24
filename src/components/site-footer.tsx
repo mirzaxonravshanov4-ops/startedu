@@ -43,7 +43,9 @@ export function SiteFooter() {
             <li><Link to="/about" className="hover:text-foreground">Biz haqimizda</Link></li>
             <li><Link to="/faq" className="hover:text-foreground">FAQ &amp; Aloqa</Link></li>
             <li><Link to="/$subject/dashboard" params={{ subject }} className="hover:text-foreground">Dashboard</Link></li>
-            <li><a href="mailto:hello@startedu.uz" className="hover:text-foreground">Aloqa</a></li>
+            <li><a href="mailto:mirzaxonravshanov@gmail.com" className="hover:text-foreground">mirzaxonravshanov@gmail.com</a></li>
+            <li><a href="tel:+998944880913" className="hover:text-foreground">+998 94 488 09 13</a></li>
+            <li><a href="https://t.me/m1x080_v" target="_blank" rel="noreferrer" className="hover:text-foreground">Telegram: @m1x080_v</a></li>
           </ul>
         </div>
       </div>
@@ -53,7 +55,7 @@ export function SiteFooter() {
             © {new Date().getFullYear()} StartEdu. Muallif: Mirzaxon Ravshanov. Barcha huquqlar
             himoyalangan.
           </p>
-          <p>O'zbekiston, Samarqand</p>
+          <p>Samarqand, O'zbekiston</p>
         </div>
       </div>
     </footer>

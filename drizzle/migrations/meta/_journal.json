@@ -29,6 +29,13 @@
       "when": 1790206528556,
       "tag": "0003_class_media_storage_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790209672960,
+      "tag": "0004_ai_daily_quota",
+      "breakpoints": true
     }
   ]
 }

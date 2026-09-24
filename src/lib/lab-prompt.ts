@@ -33,6 +33,7 @@ FAQAT quyidagi JSON sxemasini qaytaring (boshqa matn yo'q):
   "title": "string",
   "summary": "string",
   "answer": "string (LaTeX bilan yakuniy javob)",
+  "difficulty": "oson | o'rta | qiyin",
   "steps": [
     {
       "title": "qisqa sarlavha",
@@ -63,7 +64,11 @@ shapes elementlari (kind bo'yicha):
 QAT'IY QOIDALAR:
 - "expr" faqat oddiy matematik ifoda: x, + - * / ^ %, qavslar va sqrt/abs/sin/cos/tan/ln/log/exp funksiyalari. LaTeX EMAS.
 - Har bir qadamda kamida 1 shape bo'lsin. Grafik kerak bo'lsa avval {"kind":"grid"} va {"kind":"axes"} qo'ying.
-- 4 dan 7 gacha qadam bo'lsin; oxirgi qadamda javob vizual ta'kidlansin.
+- Avval savol darajasini aniqlang va "difficulty" ga yozing. Kadrlar (steps) soni DARAJAGA QAT'IY mos bo'lsin:
+  * oson — 3 yoki 4 ta kadr;
+  * o'rta — 5 dan 8 gacha kadr;
+  * qiyin — 9 dan 11 gacha kadr.
+- Oxirgi qadamda javob vizual ta'kidlansin.
 - Koordinatalar "view" oralig'ida bo'lsin. Barcha sonlar — son (string emas).`;
 
 /** Extracts a Scene object from a model reply that may contain code fences. */

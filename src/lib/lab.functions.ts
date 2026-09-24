@@ -3,6 +3,7 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { LAB_SYSTEM_PROMPT, LAB_TOPICS, extractJson } from "@/lib/lab-prompt";
 import { chatCompletion } from "@/lib/ai-gateway";
+import { withAiQuota } from "@/lib/ai-quota.server";
 
 
 const InputSchema = z.object({
@@ -22,7 +23,7 @@ export { LAB_TOPICS };
 export const makeScene = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => InputSchema.parse(data))
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => withAiQuota(context.supabase, async () => {
     const user = [
       data.topic ? `Mavzu: ${data.topic}` : "",
       `Savol: ${data.question}`,
@@ -53,5 +54,7 @@ export const makeScene = createServerFn({ method: "POST" })
     if (!scene || !Array.isArray(scene.steps) || scene.steps.length === 0) {
       throw new Error("Vizual sahna tuzilmadi, savolni aniqroq yozib ko'ring");
     }
+    // Qiyin savollar uchun ham 11 kadrdan oshmasin
+    if (scene.steps.length > 11) scene.steps = scene.steps.slice(0, 11);
     return { scene };
-  });
+  }));

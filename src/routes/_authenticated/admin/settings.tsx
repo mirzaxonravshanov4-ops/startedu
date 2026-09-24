@@ -25,8 +25,8 @@ type General = {
 const DEFAULTS: General = {
   site_name: "StartEdu",
   author: "Mirzaxon Ravshanov",
-  contact_email: "hello@startedu.uz",
-  location: "O'zbekiston, Samarqand",
+  contact_email: "mirzaxonravshanov@gmail.com",
+  location: "Samarqand, O'zbekiston",
   registration_open: true,
   maintenance: false,
 };

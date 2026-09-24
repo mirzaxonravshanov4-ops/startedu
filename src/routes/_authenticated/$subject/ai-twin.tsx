@@ -1,3 +1,4 @@
+import { AiQuotaBadge } from "@/components/ai-quota-badge";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Sparkles, Target } from "lucide-react";
@@ -51,6 +52,7 @@ function AiTwinPage() {
         </span>
         <div>
           <h1 className="text-xl font-semibold tracking-tight">AI Twin</h1>
+          <div className="mt-2"><AiQuotaBadge /></div>
           <p className="text-sm text-muted-foreground">
             Maqsadingizni yozing — shaxsiy kunma-kun o'quv rejasi tuzib beradi.
           </p>

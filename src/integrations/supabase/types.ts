@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_usage: {
+        Row: {
+          count: number
+          day: string
+          user_id: string
+        }
+        Insert: {
+          count?: number
+          day?: string
+          user_id: string
+        }
+        Update: {
+          count?: number
+          day?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       assignment_submissions: {
         Row: {
           assignment_id: string
@@ -1315,7 +1333,10 @@ export type Database = {
           username: string
         }[]
       }
+      ai_quota_limit: { Args: { _uid: string }; Returns: number }
+      ai_quota_status: { Args: never; Returns: Json }
       claim_admin_if_none: { Args: never; Returns: boolean }
+      consume_ai_quota: { Args: never; Returns: Json }
       get_my_profile: {
         Args: never
         Returns: {
@@ -1419,6 +1440,7 @@ export type Database = {
           xp: number
         }[]
       }
+      refund_ai_quota: { Args: never; Returns: undefined }
       set_initial_role: {
         Args: { _role: Database["public"]["Enums"]["app_role"] }
         Returns: boolean

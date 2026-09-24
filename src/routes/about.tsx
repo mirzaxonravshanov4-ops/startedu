@@ -112,8 +112,8 @@ function About() {
         </div>
         <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-3">
           {[
-            { icon: Mail, l: "Email", v: "hello@start.edu" },
-            { icon: Phone, l: "Telefon", v: "+998 (94) 488-09-13" },
+            { icon: Mail, l: "Email", v: "mirzaxonravshanov@gmail.com" },
+            { icon: Phone, l: "Telefon", v: "+998 94 488 09 13" },
             { icon: MapPin, l: "Manzil", v: "Samarqand, O'zbekiston" },
           ].map((c) => (
             <div key={c.l} className="rounded-2xl border border-border bg-card p-3 text-center">

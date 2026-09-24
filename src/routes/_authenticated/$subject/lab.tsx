@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
@@ -9,6 +9,7 @@ import { LAB_TOPICS } from "@/lib/lab-prompt";
 import { ScenePlayer } from "@/components/lab/scene-player";
 import { LatexText } from "@/components/latex-text";
 import type { Scene } from "@/lib/scene";
+import { AiQuotaBadge, AI_QUOTA_KEY } from "@/components/ai-quota-badge";
 
 export const Route = createFileRoute("/_authenticated/$subject/lab")({
   head: () => ({
@@ -33,6 +34,7 @@ export const Route = createFileRoute("/_authenticated/$subject/lab")({
 
 function LabPage() {
   const run = useServerFn(makeScene);
+  const qc = useQueryClient();
   const [topic, setTopic] = useState(LAB_TOPICS[0]!.title);
   const [question, setQuestion] = useState("");
   const [scene, setScene] = useState<Scene | null>(null);
@@ -48,6 +50,7 @@ function LabPage() {
     },
     onSuccess: (s) => setScene(s),
     onError: (e: Error) => toast.error(e.message || "Sahna tuzilmadi"),
+    onSettled: () => qc.invalidateQueries({ queryKey: AI_QUOTA_KEY }),
   });
 
   async function pickImage(file: File | undefined) {
@@ -97,6 +100,7 @@ function LabPage() {
             Savolingizni yozing yoki masala rasmini yuklang — javob animatsion “video” kadrlarida: grafik, son o'qi,
             diagramma va bosqichma-bosqich izoh bilan chiziladi.
           </p>
+          <div className="mt-3"><AiQuotaBadge /></div>
         </div>
       </div>
 
