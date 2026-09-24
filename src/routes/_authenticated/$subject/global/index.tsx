@@ -152,7 +152,7 @@ function GlobalPage() {
             <span className="font-medium">Premium imkoniyat</span>
           </div>
           <p className="mt-2 text-sm text-muted-foreground">
-            O'z global testingizni yaratish uchun premium rol kerak. Premium rolini administrator beradi.
+            O'z global testingizni yaratish uchun premium rol kerak. Premium sotib olish uchun Telegram: <a href="https://t.me/m1x080_v" target="_blank" rel="noreferrer" className="font-medium text-foreground underline">@m1x080_v</a>
           </p>
         </div>
       ) : (

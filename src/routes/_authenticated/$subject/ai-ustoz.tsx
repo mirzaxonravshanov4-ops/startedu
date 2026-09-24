@@ -1,3 +1,4 @@
+import { AiQuotaBadge } from "@/components/ai-quota-badge";
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState, useEffect } from "react";
 import { Bot, Send, UserRound } from "lucide-react";
@@ -57,6 +58,7 @@ function AiTutorPage() {
         </span>
         <div>
           <h1 className="text-xl font-semibold tracking-tight">AI ustoz</h1>
+          <div className="mt-2"><AiQuotaBadge /></div>
           <p className="text-sm text-muted-foreground">
             Savolingizni yozing — qadam-baqadam tushuntirib beradi.
           </p>

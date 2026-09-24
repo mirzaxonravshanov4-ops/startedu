@@ -85,9 +85,9 @@ function FaqPage() {
 
       <section className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          { icon: Mail, label: "Email", value: "hello@startedu.uz", href: "mailto:hello@startedu.uz" },
-          { icon: MessageCircle, label: "Telegram", value: "@startedu_uz", href: "https://t.me/startedu_uz" },
-          { icon: Phone, label: "Telefon", value: "+998 90 000 00 00", href: "tel:+998900000000" },
+          { icon: Mail, label: "Email", value: "mirzaxonravshanov@gmail.com", href: "mailto:mirzaxonravshanov@gmail.com" },
+          { icon: MessageCircle, label: "Telegram", value: "@m1x080_v", href: "https://t.me/m1x080_v" },
+          { icon: Phone, label: "Telefon", value: "+998 94 488 09 13", href: "tel:+998944880913" },
           { icon: MapPin, label: "Manzil", value: "Samarqand, O'zbekiston" },
         ].map((c) => (
           <div key={c.label} className="rounded-2xl border border-border bg-card p-5">
