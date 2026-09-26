@@ -18,9 +18,9 @@ export function AiQuotaBadge() {
       <span>
         Bugun AI: <span className="font-semibold text-foreground">{left}</span> / {data.limit} qoldi
       </span>
-      {data.limit < 10 && (
+      {data.limit < 20 && (
         <a href={CONTACT.telegramHref} target="_blank" rel="noreferrer" className="font-medium text-brand hover:underline">
-          Premium (10 ta/kun): {CONTACT.telegram}
+          Premium (20 ta/kun): {CONTACT.telegram}
         </a>
       )}
     </div>

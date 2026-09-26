@@ -36,7 +36,7 @@ function ClassesPage() {
       const { data: userRes } = await supabase.auth.getUser();
       const uid = userRes.user!.id;
       const { data: roles } = await supabase.from("user_roles").select("role").eq("user_id", uid);
-      const isTeacher = (roles ?? []).some((r) => r.role === "teacher" || r.role === "admin");
+      const isTeacher = (roles ?? []).some((r) => r.role === "teacher" || r.role === "admin" || r.role === "premium");
       const { data: teaching } = await supabase
         .from("classes")
         .select("id, name, description, subject, join_code, is_active")
