@@ -43,6 +43,13 @@
       "when": 1790210360081,
       "tag": "0005_ai_quota_admin_unlimited",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1790391546287,
+      "tag": "0006_premium_limits",
+      "breakpoints": true
     }
   ]
 }
