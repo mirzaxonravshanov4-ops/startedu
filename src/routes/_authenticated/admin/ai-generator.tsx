@@ -102,11 +102,13 @@ function AiGenerator() {
     onSuccess: ({ res, append }) => {
       if (res.kind === "test") {
         const list = res.questions as ImportedQuestion[];
+        if (!list.length) return void toast.error("AI savol qaytarmadi — qayta urinib ko'ring");
         setItems((prev) => (append ? [...prev, ...list] : list));
         setTasks([]);
         toast.success(`${list.length} ta savol yaratildi`);
       } else {
         const list = res.tasks as GeneratedWritten[];
+        if (!list.length) return void toast.error("AI topshiriq qaytarmadi — qayta urinib ko'ring");
         setTasks((prev) => (append ? [...prev, ...list] : list));
         setItems([]);
         toast.success(`${list.length} ta yozma ish yaratildi`);
