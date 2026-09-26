@@ -56,7 +56,7 @@ export async function chatCompletion(body: ChatBody): Promise<string> {
     body: JSON.stringify({
       model: AI_MODEL_DEFAULT,
       instructions: instructions || undefined,
-      input,
+      input: wantsJson ? [...input, { role: "user", content: [{ type: "input_text", text: "Return the answer as valid JSON only." }] }] : input,
       stream: true,
       store: false,
       reasoning: { effort: "low" },
