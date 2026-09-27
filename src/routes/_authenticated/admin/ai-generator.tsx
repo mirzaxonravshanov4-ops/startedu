@@ -306,10 +306,10 @@ function AiGenerator() {
           <div className="flex flex-wrap items-center gap-2">
             <label className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-border px-3 py-2 text-sm hover:bg-secondary">
               {upload.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileUp className="h-4 w-4" />}
-              Fayl yuklash (.docx, .pdf, .tex, .txt)
+              Fayl yuklash (.docx, .pdf, .csv, .tex, .txt)
               <input
                 type="file"
-                accept=".docx,.pdf,.tex,.txt,.md"
+                accept=".docx,.pdf,.csv,.tex,.txt,.md,text/csv"
                 className="hidden"
                 onChange={(e) => {
                   const f = e.target.files?.[0];
@@ -354,7 +354,7 @@ function AiGenerator() {
       </div>
 
       {total > 0 && (
-        <div className="mt-6 rounded-2xl border border-border bg-card p-4">
+        <div data-no-float className="mt-6 rounded-2xl border border-border bg-card p-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="text-sm font-semibold">
               Ko'rib chiqish: <span className="gradient-text">{total}</span> ta{" "}
