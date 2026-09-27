@@ -16,16 +16,16 @@ export function FloatReveal() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    const reveal = (el: HTMLElement) => {
+      el.classList.add("float-in");
+      io.unobserve(el);
+    };
+    // threshold 0: very tall blocks (long question lists) still reveal as soon as any part shows
     const io = new IntersectionObserver(
       (entries) => {
-        for (const e of entries) {
-          if (!e.isIntersecting) continue;
-          const el = e.target as HTMLElement;
-          el.classList.add("float-in");
-          io.unobserve(el);
-        }
+        for (const e of entries) if (e.isIntersecting) reveal(e.target as HTMLElement);
       },
-      { rootMargin: "0px 0px -6% 0px", threshold: 0.05 },
+      { rootMargin: "0px 0px -4% 0px", threshold: 0 },
     );
 
     const scan = () => {
@@ -34,11 +34,16 @@ export function FloatReveal() {
       for (const el of els) {
         if (el.dataset.float) continue;
         // Skip blocks nested in an already-animated block to avoid double motion
-        if (el.parentElement?.closest("[data-float]")) { el.dataset.float = "skip"; continue; }
+        if (el.parentElement?.closest("[data-float]") || el.closest("[data-no-float]")) {
+          el.dataset.float = "skip";
+          continue;
+        }
         el.dataset.float = "1";
         el.style.setProperty("--float-delay", `${Math.min(i++ % 6, 5) * 70}ms`);
         el.classList.add("float-pre");
         io.observe(el);
+        // Safety net: never leave content hidden
+        window.setTimeout(() => reveal(el), 1500);
       }
     };
 
