@@ -199,7 +199,15 @@ function LabPage() {
           </div>
         </div>
 
-        <div>
+        <div data-no-float>
+          {!gen.isPending && scene && (
+            <div className="mb-3 flex flex-wrap gap-2 text-xs">
+              {scene.difficulty && (
+                <span className="rounded-full bg-secondary px-3 py-1">Daraja: {scene.difficulty}</span>
+              )}
+              <span className="rounded-full bg-secondary px-3 py-1">{scene.steps.length} ta kadr</span>
+            </div>
+          )}
           {gen.isPending && (
             <div className="grid h-80 place-items-center rounded-2xl border border-border bg-card text-sm text-muted-foreground">
               <div className="flex items-center gap-2">

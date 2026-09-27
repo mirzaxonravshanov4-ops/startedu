@@ -67,7 +67,7 @@ export const generateContent = createServerFn({ method: "POST" })
         DIFF_TEXT[data.difficulty] ?? "",
         `Admin buyrug'i: ${data.instruction}`,
         src
-          ? `MANBA FAYL berilgan. Avvalo fayldagi savollarni aynan olib (xatolarini tuzatib, LaTeX ga o'tkazib) qaytaring; fayldagi savollar tugasa yoki kamlik qilsa, ular uslubida va shu mavzuda yangilarini tuzing. To'g'ri javob ko'rsatilmagan bo'lsa, o'zingiz yechib belgilang.\n\nMANBA:\n${src.slice(0, 60_000)}`
+          ? `MANBA FAYL berilgan. Avvalo fayldagi savollarni aynan olib (xatolarini tuzatib, LaTeX ga o'tkazib) qaytaring; fayldagi savollar tugasa yoki kamlik qilsa, ular uslubida va shu mavzuda yangilarini tuzing. To'g'ri javob ko'rsatilmagan bo'lsa, o'zingiz yechib belgilang. Agar manba CSV jadval bo'lsa (vergul yoki nuqtali vergul bilan ajratilgan), har bir qator — bitta savol: ustunlar odatda savol, A/B/C/D variantlar, to'g'ri javob va izoh; sarlavha qatorini savol deb olmang.\n\nMANBA:\n${src.slice(0, 60_000)}`
           : `Variant #${variant}: bu to'plam boshqa to'plamlardan farq qilsin — turli sonlar, kontekst va yechim usullaridan foydalaning.`,
         [...baseAvoid, ...extraAvoid].length
           ? `Quyidagilar allaqachon mavjud — takrorlamang:\n${[...baseAvoid, ...extraAvoid]
