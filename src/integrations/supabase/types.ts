@@ -1445,6 +1445,7 @@ export type Database = {
         Args: { _role: Database["public"]["Enums"]["app_role"] }
         Returns: boolean
       }
+      shares_class: { Args: { _a: string; _b: string }; Returns: boolean }
       submit_global_test: {
         Args: { _answers: Json; _code: string; _time_spent_seconds: number }
         Returns: string
