@@ -38,6 +38,14 @@ export async function chatCompletion(body: ChatBody): Promise<string> {
         ...(wantsJson ? { response_format: { type: "json_object" } } : {}),
       }),
     });
+    if (res.status === 429) {
+      const txt = await res.clone().text().catch(() => "");
+      if (/quota|billing/i.test(txt)) {
+        throw new Error(
+          "Gemini API kalitining kunlik bepul limiti tugadi. Ertaga qayta urinib ko'ring yoki Google AI Studio'da to'lovni yoqing.",
+        );
+      }
+    }
     if (res.status !== 429 && res.status < 500) break;
     if (attempt < 2) await sleep(1500 * 2 ** attempt + Math.random() * 500);
   }
