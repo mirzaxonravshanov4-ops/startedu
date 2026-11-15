@@ -1,11 +1,9 @@
 import {
   Award,
-  Bot,
   BarChart3,
   BadgeCheck,
   BookOpen,
   FileText,
-  FlaskConical,
   Globe2,
   GraduationCap,
   HelpCircle,
@@ -13,7 +11,6 @@ import {
   LayoutDashboard,
   ShieldCheck,
   Sigma,
-  Sparkles,
   Trophy,
   Users,
   Video,
@@ -37,9 +34,6 @@ export type SubjectPath =
   | "/$subject/leaderboard"
   | "/$subject/classes"
   | "/$subject/global"
-  | "/$subject/lab"
-  | "/$subject/ai-ustoz"
-  | "/$subject/ai-twin"
   | "/$subject/videos";
 
 /** Fanga bog'liq bo'lmagan sahifalar. */
@@ -99,10 +93,7 @@ export function navGroupsFor(subject: SubjectKey): NavGroup[] {
     {
       title: "Vositalar",
       items: [
-        { scoped: true, to: "/$subject/lab", label: "Visual Lab", icon: FlaskConical },
-        { scoped: true, to: "/$subject/ai-ustoz", label: "AI ustoz", icon: Bot },
-        { scoped: true, to: "/$subject/ai-twin", label: "AI Twin", icon: Sparkles },
-        { scoped: true, to: "/$subject/videos", label: "Video darslar", icon: Video },
+        { scoped: true, to: "/$subject/videos", label: "Kurslar", icon: Video },
       ],
     },
     {

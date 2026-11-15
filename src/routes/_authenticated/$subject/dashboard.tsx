@@ -160,7 +160,7 @@ function Dashboard() {
         {[
           { icon: Book, t: "Mavzulashtirilgan", d: "Mavzular bo'yicha tartiblangan matematika testlari.", to: "/$subject/topics" as const },
           { icon: GraduationCap, t: "Milliy sertifikat", d: "Milliy sertifikat formatidagi testlar.", to: "/$subject/milliy-sertifikat" as const },
-          { icon: Sparkles, t: "Visual Lab", d: "Mavzularni interaktiv vizual tajribalar bilan o'rganing.", to: "/$subject/lab" as const },
+          { icon: Sparkles, t: "Kurslar", d: "Bepul va Pro kurslar bilan bosqichma-bosqich o'rganing.", to: "/$subject/videos" as const },
           { icon: Trophy, t: "Reyting", d: "Top o'quvchilar orasida o'z o'rningizni ko'ring.", to: "/$subject/leaderboard" as const },
         ].map((c) => (
           <Link

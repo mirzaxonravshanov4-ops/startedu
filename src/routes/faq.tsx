@@ -23,7 +23,7 @@ export const Route = createFileRoute("/faq")({
 const faqs = [
   {
     q: "StartEdu qanday platforma?",
-    a: "StartEdu — matematika bo'yicha onlayn tayyorgarlik platformasi. Milliy sertifikat, DTM, attestatsiya, SAT math va olimpiada yo'nalishlarida testlar, to'liq testlar, video darslar, AI tutor va vizual laboratoriya mavjud.",
+    a: "StartEdu — matematika bo'yicha onlayn tayyorgarlik platformasi. Milliy sertifikat, DTM, attestatsiya, SAT math va olimpiada yo'nalishlarida testlar, to'liq testlar, bepul va Pro kurslar mavjud.",
   },
   {
     q: "Ro'yxatdan o'tish pullikmi?",
@@ -46,8 +46,8 @@ const faqs = [
     a: "Halollikni ta'minlash uchun test boshlanganda nazorat rejimi yoqiladi: sahifa to'liq ekranga o'tadi, menyular yashiriladi va boshqa oynaga o'tish qayd etiladi.",
   },
   {
-    q: "Visual Lab qanday ishlaydi?",
-    a: "Savolingizni matn yoki rasm ko'rinishida yuborasiz, tizim yechimni bosqichma-bosqich animatsiyali video ko'rinishida ovoz bilan tushuntiradi.",
+    q: "Bepul va Pro kurslar farqi nimada?",
+    a: "Bepul kurslar hamma uchun ochiq. Pro kurslar va Pro modullar premium obunachilar uchun — premium olish uchun biz bilan bog'laning.",
   },
   {
     q: "Sinf bo'limida jonli dars bormi?",

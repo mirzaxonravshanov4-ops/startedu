@@ -1,11 +1,10 @@
 /**
- * Single place where every AI call goes out — user's own Google Gemini key
- * (OpenAI-compatible Chat Completions endpoint, streamed).
+ * Single place where every AI call goes out — user's own OpenAI key (Chat Completions, streamed).
  * Server-only: call from inside a server function handler.
  */
 
-export const AI_MODEL_DEFAULT = "gemini-3.8-flash";
-const ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+export const AI_MODEL_DEFAULT = "gpt-4.1-mini";
+const ENDPOINT = "https://api.openai.com/v1/chat/completions";
 
 type Msg = { role: string; content: unknown };
 type ChatBody = {
@@ -18,7 +17,7 @@ type ChatBody = {
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export async function chatCompletion(body: ChatBody): Promise<string> {
-  const apiKey = process.env["GEMINI_API_KEY"];
+  const apiKey = process.env["OPENAI_API_KEY"];
   if (!apiKey) throw new Error("AI xizmati sozlanmagan");
 
   const wantsJson = (body.response_format as { type?: string } | undefined)?.type === "json_object";
@@ -42,7 +41,7 @@ export async function chatCompletion(body: ChatBody): Promise<string> {
       const txt = await res.clone().text().catch(() => "");
       if (/quota|billing/i.test(txt)) {
         throw new Error(
-          "Gemini API kalitining kunlik bepul limiti tugadi. Ertaga qayta urinib ko'ring yoki Google AI Studio'da to'lovni yoqing.",
+          "OpenAI hisobingizda mablag' yoki limit tugadi. OpenAI hisobida balansni tekshiring.",
         );
       }
     }

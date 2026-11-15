@@ -19,13 +19,10 @@ import { Route as AuthenticatedSubjectRouteRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as CertificateCodeRouteImport } from './routes/certificate.$code'
-import { Route as AuthenticatedSubjectAiTwinRouteImport } from './routes/_authenticated/$subject/ai-twin'
-import { Route as AuthenticatedSubjectAiUstozRouteImport } from './routes/_authenticated/$subject/ai-ustoz'
 import { Route as AuthenticatedSubjectAttestatsiyaRouteImport } from './routes/_authenticated/$subject/attestatsiya'
 import { Route as AuthenticatedSubjectCertificatesRouteImport } from './routes/_authenticated/$subject/certificates'
 import { Route as AuthenticatedSubjectDashboardRouteImport } from './routes/_authenticated/$subject/dashboard'
 import { Route as AuthenticatedSubjectDtmRouteImport } from './routes/_authenticated/$subject/dtm'
-import { Route as AuthenticatedSubjectLabRouteImport } from './routes/_authenticated/$subject/lab'
 import { Route as AuthenticatedSubjectLeaderboardRouteImport } from './routes/_authenticated/$subject/leaderboard'
 import { Route as AuthenticatedSubjectMilliySertifikatRouteImport } from './routes/_authenticated/$subject/milliy-sertifikat'
 import { Route as AuthenticatedSubjectOlimpiadaRouteImport } from './routes/_authenticated/$subject/olimpiada'
@@ -105,18 +102,6 @@ const CertificateCodeRoute = CertificateCodeRouteImport.update({
   path: '/certificate/$code',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedSubjectAiTwinRoute =
-  AuthenticatedSubjectAiTwinRouteImport.update({
-    id: '/ai-twin',
-    path: '/ai-twin',
-    getParentRoute: () => AuthenticatedSubjectRouteRoute,
-  } as any)
-const AuthenticatedSubjectAiUstozRoute =
-  AuthenticatedSubjectAiUstozRouteImport.update({
-    id: '/ai-ustoz',
-    path: '/ai-ustoz',
-    getParentRoute: () => AuthenticatedSubjectRouteRoute,
-  } as any)
 const AuthenticatedSubjectAttestatsiyaRoute =
   AuthenticatedSubjectAttestatsiyaRouteImport.update({
     id: '/attestatsiya',
@@ -138,11 +123,6 @@ const AuthenticatedSubjectDashboardRoute =
 const AuthenticatedSubjectDtmRoute = AuthenticatedSubjectDtmRouteImport.update({
   id: '/dtm',
   path: '/dtm',
-  getParentRoute: () => AuthenticatedSubjectRouteRoute,
-} as any)
-const AuthenticatedSubjectLabRoute = AuthenticatedSubjectLabRouteImport.update({
-  id: '/lab',
-  path: '/lab',
   getParentRoute: () => AuthenticatedSubjectRouteRoute,
 } as any)
 const AuthenticatedSubjectLeaderboardRoute =
@@ -320,13 +300,10 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/profile': typeof AuthenticatedProfileRoute
   '/certificate/$code': typeof CertificateCodeRoute
-  '/$subject/ai-twin': typeof AuthenticatedSubjectAiTwinRoute
-  '/$subject/ai-ustoz': typeof AuthenticatedSubjectAiUstozRoute
   '/$subject/attestatsiya': typeof AuthenticatedSubjectAttestatsiyaRoute
   '/$subject/certificates': typeof AuthenticatedSubjectCertificatesRoute
   '/$subject/dashboard': typeof AuthenticatedSubjectDashboardRoute
   '/$subject/dtm': typeof AuthenticatedSubjectDtmRoute
-  '/$subject/lab': typeof AuthenticatedSubjectLabRoute
   '/$subject/leaderboard': typeof AuthenticatedSubjectLeaderboardRoute
   '/$subject/milliy-sertifikat': typeof AuthenticatedSubjectMilliySertifikatRoute
   '/$subject/olimpiada': typeof AuthenticatedSubjectOlimpiadaRoute
@@ -365,13 +342,10 @@ export interface FileRoutesByTo {
   '/$subject': typeof AuthenticatedSubjectRouteRouteWithChildren
   '/profile': typeof AuthenticatedProfileRoute
   '/certificate/$code': typeof CertificateCodeRoute
-  '/$subject/ai-twin': typeof AuthenticatedSubjectAiTwinRoute
-  '/$subject/ai-ustoz': typeof AuthenticatedSubjectAiUstozRoute
   '/$subject/attestatsiya': typeof AuthenticatedSubjectAttestatsiyaRoute
   '/$subject/certificates': typeof AuthenticatedSubjectCertificatesRoute
   '/$subject/dashboard': typeof AuthenticatedSubjectDashboardRoute
   '/$subject/dtm': typeof AuthenticatedSubjectDtmRoute
-  '/$subject/lab': typeof AuthenticatedSubjectLabRoute
   '/$subject/leaderboard': typeof AuthenticatedSubjectLeaderboardRoute
   '/$subject/milliy-sertifikat': typeof AuthenticatedSubjectMilliySertifikatRoute
   '/$subject/olimpiada': typeof AuthenticatedSubjectOlimpiadaRoute
@@ -413,13 +387,10 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/certificate/$code': typeof CertificateCodeRoute
-  '/_authenticated/$subject/ai-twin': typeof AuthenticatedSubjectAiTwinRoute
-  '/_authenticated/$subject/ai-ustoz': typeof AuthenticatedSubjectAiUstozRoute
   '/_authenticated/$subject/attestatsiya': typeof AuthenticatedSubjectAttestatsiyaRoute
   '/_authenticated/$subject/certificates': typeof AuthenticatedSubjectCertificatesRoute
   '/_authenticated/$subject/dashboard': typeof AuthenticatedSubjectDashboardRoute
   '/_authenticated/$subject/dtm': typeof AuthenticatedSubjectDtmRoute
-  '/_authenticated/$subject/lab': typeof AuthenticatedSubjectLabRoute
   '/_authenticated/$subject/leaderboard': typeof AuthenticatedSubjectLeaderboardRoute
   '/_authenticated/$subject/milliy-sertifikat': typeof AuthenticatedSubjectMilliySertifikatRoute
   '/_authenticated/$subject/olimpiada': typeof AuthenticatedSubjectOlimpiadaRoute
@@ -461,13 +432,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/profile'
     | '/certificate/$code'
-    | '/$subject/ai-twin'
-    | '/$subject/ai-ustoz'
     | '/$subject/attestatsiya'
     | '/$subject/certificates'
     | '/$subject/dashboard'
     | '/$subject/dtm'
-    | '/$subject/lab'
     | '/$subject/leaderboard'
     | '/$subject/milliy-sertifikat'
     | '/$subject/olimpiada'
@@ -506,13 +474,10 @@ export interface FileRouteTypes {
     | '/$subject'
     | '/profile'
     | '/certificate/$code'
-    | '/$subject/ai-twin'
-    | '/$subject/ai-ustoz'
     | '/$subject/attestatsiya'
     | '/$subject/certificates'
     | '/$subject/dashboard'
     | '/$subject/dtm'
-    | '/$subject/lab'
     | '/$subject/leaderboard'
     | '/$subject/milliy-sertifikat'
     | '/$subject/olimpiada'
@@ -553,13 +518,10 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/profile'
     | '/certificate/$code'
-    | '/_authenticated/$subject/ai-twin'
-    | '/_authenticated/$subject/ai-ustoz'
     | '/_authenticated/$subject/attestatsiya'
     | '/_authenticated/$subject/certificates'
     | '/_authenticated/$subject/dashboard'
     | '/_authenticated/$subject/dtm'
-    | '/_authenticated/$subject/lab'
     | '/_authenticated/$subject/leaderboard'
     | '/_authenticated/$subject/milliy-sertifikat'
     | '/_authenticated/$subject/olimpiada'
@@ -672,20 +634,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CertificateCodeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/$subject/ai-twin': {
-      id: '/_authenticated/$subject/ai-twin'
-      path: '/ai-twin'
-      fullPath: '/$subject/ai-twin'
-      preLoaderRoute: typeof AuthenticatedSubjectAiTwinRouteImport
-      parentRoute: typeof AuthenticatedSubjectRouteRoute
-    }
-    '/_authenticated/$subject/ai-ustoz': {
-      id: '/_authenticated/$subject/ai-ustoz'
-      path: '/ai-ustoz'
-      fullPath: '/$subject/ai-ustoz'
-      preLoaderRoute: typeof AuthenticatedSubjectAiUstozRouteImport
-      parentRoute: typeof AuthenticatedSubjectRouteRoute
-    }
     '/_authenticated/$subject/attestatsiya': {
       id: '/_authenticated/$subject/attestatsiya'
       path: '/attestatsiya'
@@ -712,13 +660,6 @@ declare module '@tanstack/react-router' {
       path: '/dtm'
       fullPath: '/$subject/dtm'
       preLoaderRoute: typeof AuthenticatedSubjectDtmRouteImport
-      parentRoute: typeof AuthenticatedSubjectRouteRoute
-    }
-    '/_authenticated/$subject/lab': {
-      id: '/_authenticated/$subject/lab'
-      path: '/lab'
-      fullPath: '/$subject/lab'
-      preLoaderRoute: typeof AuthenticatedSubjectLabRouteImport
       parentRoute: typeof AuthenticatedSubjectRouteRoute
     }
     '/_authenticated/$subject/leaderboard': {
@@ -921,13 +862,10 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedSubjectRouteRouteChildren {
-  AuthenticatedSubjectAiTwinRoute: typeof AuthenticatedSubjectAiTwinRoute
-  AuthenticatedSubjectAiUstozRoute: typeof AuthenticatedSubjectAiUstozRoute
   AuthenticatedSubjectAttestatsiyaRoute: typeof AuthenticatedSubjectAttestatsiyaRoute
   AuthenticatedSubjectCertificatesRoute: typeof AuthenticatedSubjectCertificatesRoute
   AuthenticatedSubjectDashboardRoute: typeof AuthenticatedSubjectDashboardRoute
   AuthenticatedSubjectDtmRoute: typeof AuthenticatedSubjectDtmRoute
-  AuthenticatedSubjectLabRoute: typeof AuthenticatedSubjectLabRoute
   AuthenticatedSubjectLeaderboardRoute: typeof AuthenticatedSubjectLeaderboardRoute
   AuthenticatedSubjectMilliySertifikatRoute: typeof AuthenticatedSubjectMilliySertifikatRoute
   AuthenticatedSubjectOlimpiadaRoute: typeof AuthenticatedSubjectOlimpiadaRoute
@@ -948,15 +886,12 @@ interface AuthenticatedSubjectRouteRouteChildren {
 
 const AuthenticatedSubjectRouteRouteChildren: AuthenticatedSubjectRouteRouteChildren =
   {
-    AuthenticatedSubjectAiTwinRoute: AuthenticatedSubjectAiTwinRoute,
-    AuthenticatedSubjectAiUstozRoute: AuthenticatedSubjectAiUstozRoute,
     AuthenticatedSubjectAttestatsiyaRoute:
       AuthenticatedSubjectAttestatsiyaRoute,
     AuthenticatedSubjectCertificatesRoute:
       AuthenticatedSubjectCertificatesRoute,
     AuthenticatedSubjectDashboardRoute: AuthenticatedSubjectDashboardRoute,
     AuthenticatedSubjectDtmRoute: AuthenticatedSubjectDtmRoute,
-    AuthenticatedSubjectLabRoute: AuthenticatedSubjectLabRoute,
     AuthenticatedSubjectLeaderboardRoute: AuthenticatedSubjectLeaderboardRoute,
     AuthenticatedSubjectMilliySertifikatRoute:
       AuthenticatedSubjectMilliySertifikatRoute,
