@@ -5,3 +5,4 @@
 - [x] Baza talab qiladigan oqimlarni mavjud holatda qoldirib, build va ochiq sahifalarni tekshirish.
 - [x] Arxivdagi seed/kontent ma’lumotlarini ham yozmaslik, o‘zgartirmaslik yoki o‘chirmaslik.
 - [x] Version 2 dizayni uchun 92 ta asosiy sahifaning maxfiy ma’lumotlarsiz statik HTML/CSS/JavaScript nusxasini ZIP shaklida topshirish; jonli xizmatlar va IDga bog‘liq tafsilotlar kiritilmagan.
+- [x] To‘liq frontend, server kodi, mavjud migratsiyalar va rasmlarni maxfiy kalitlarsiz ZIP shaklida tayyorlash; sayt va jonli ma’lumotlar o‘zgartirilmadi.
