@@ -18,7 +18,7 @@ const DIRECTIONS = [
   { v: "dtm", l: "DTM" },
   { v: "attestatsiya", l: "Attestatsiya" },
   { v: "oddiy", l: "Oddiy testlar" },
-  { v: "video", l: "Video darslar" },
+  { v: "video", l: "Kurslar" },
 ];
 
 type Form = {

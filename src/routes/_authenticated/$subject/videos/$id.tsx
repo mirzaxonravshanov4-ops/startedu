@@ -84,7 +84,7 @@ function VideoPage() {
       <div className="mx-auto max-w-4xl px-4 py-16 text-center">
         <p className="text-muted-foreground">Video topilmadi.</p>
         <Link to="/$subject/videos" params={{ subject }} className="mt-4 inline-block text-sm text-brand hover:underline">
-          Video darslarga qaytish
+          Kurslarga qaytish
         </Link>
       </div>
     );
@@ -95,7 +95,7 @@ function VideoPage() {
       <Link to="/$subject/videos" params={{ subject }}
         className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
       >
-        <ArrowLeft className="h-4 w-4" /> Video darslar
+        <ArrowLeft className="h-4 w-4" /> Kurslar
       </Link>
 
       <div className="mt-4 overflow-hidden rounded-2xl border border-border bg-black">

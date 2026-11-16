@@ -33,7 +33,7 @@ export function SiteFooter() {
             <li><Link to="/$subject/attestatsiya" params={{ subject }} className="hover:text-foreground">Attestatsiya</Link></li>
             <li><Link to="/$subject/sat" params={{ subject }} className="hover:text-foreground">SAT math</Link></li>
             <li><Link to="/$subject/olimpiada" params={{ subject }} className="hover:text-foreground">Olimpiada</Link></li>
-            <li><Link to="/$subject/videos" params={{ subject }} className="hover:text-foreground">Video darslar</Link></li>
+            <li><Link to="/$subject/videos" params={{ subject }} className="hover:text-foreground">Kurslar</Link></li>
           </ul>
         </div>
 

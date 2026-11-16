@@ -46,8 +46,8 @@ export const DIRECTIONS: Direction[] = [
   },
   {
     key: "video",
-    label: "Video darslar",
-    description: "Video darslar va materiallar",
+    label: "Kurslar",
+    description: "Bepul va Pro kurslar",
     icon: Video,
     categories: [],
     videos: true,

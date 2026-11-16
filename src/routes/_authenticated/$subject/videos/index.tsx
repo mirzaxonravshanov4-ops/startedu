@@ -2,107 +2,64 @@ import { useSubject } from "@/lib/subject";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { PlayCircle, FileText, Clock } from "lucide-react";
+import { Clock, FileText, PlayCircle } from "lucide-react";
+import { CourseCatalog, isProModule, type CatalogCourse } from "@/components/course-catalog";
 
 export const Route = createFileRoute("/_authenticated/$subject/videos/")({
   head: () => ({
     meta: [
-      { title: "Video darslar — StartEdu" },
-      { name: "description", content: "Fan va mavzu bo'yicha tartiblangan video darslar." },
+      { title: "Kurslar — StartEdu" },
+      { name: "description", content: "Bepul va Pro kurslar: bosqichma-bosqich darslar." },
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: VideosPage,
+  component: CoursesPage,
 });
 
-function VideosPage() {
+function CoursesPage() {
   const subject = useSubject();
   const { data, isLoading } = useQuery({
-    queryKey: ["video-lessons"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("video_lessons")
-        .select("id, title, description, subject, duration_seconds, pdf_url, thumbnail_url, topics(title)")
-        .eq("is_published", true)
-        .order("sort_order", { ascending: true })
-        .order("created_at", { ascending: false });
+    queryKey: ["courses"],
+    queryFn: async (): Promise<CatalogCourse[]> => {
+      const [{ data: lessons, error }, { data: modules }] = await Promise.all([
+        supabase.from("video_lessons")
+          .select("id, title, description, module_id, duration_seconds, pdf_url, thumbnail_url")
+          .eq("is_published", true).order("sort_order"),
+        supabase.from("modules").select("id, slug, title, description")
+          .eq("direction", "video").eq("is_published", true).order("sort_order"),
+      ]);
       if (error) throw error;
-      return data ?? [];
+      const node = (v: NonNullable<typeof lessons>[number], i: number) => (
+        <Link to="/$subject/videos/$id" params={{ subject, id: v.id }}
+          className="flex items-center gap-4 rounded-xl border border-border bg-card p-3 transition-colors hover:border-brand/60">
+          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-brand/10 font-bold text-brand">{i + 1}</span>
+          <div className="min-w-0 flex-1">
+            <div className="truncate font-semibold">{v.title}</div>
+            <div className="mt-1 flex items-center gap-3 text-xs text-muted-foreground">
+              {v.duration_seconds ? <span className="inline-flex items-center gap-1"><Clock className="h-3 w-3" />{Math.round(v.duration_seconds / 60)} daq</span> : null}
+              {v.pdf_url && <span className="inline-flex items-center gap-1"><FileText className="h-3 w-3" /> PDF</span>}
+            </div>
+          </div>
+          <PlayCircle className="h-6 w-6 text-brand" />
+        </Link>
+      );
+      const all = lessons ?? [];
+      const courses: CatalogCourse[] = (modules ?? []).map((m) => ({
+        id: m.id, title: m.title, description: m.description, isPro: isProModule(m), itemLabel: "dars",
+        items: all.filter((v) => v.module_id === m.id).map((v, i) => ({ id: v.id, node: node(v, i) })),
+      }));
+      const known = new Set(courses.map((c) => c.id));
+      const loose = all.filter((v) => !v.module_id || !known.has(v.module_id));
+      if (loose.length)
+        courses.push({ id: "general", title: "Umumiy darslar", description: "Turli mavzulardagi darslar.", isPro: false,
+          itemLabel: "dars", items: loose.map((v, i) => ({ id: v.id, node: node(v, i) })) });
+      return courses;
     },
   });
 
-  type Video = NonNullable<typeof data>[number];
-  const grouped = (data ?? []).reduce<Record<string, Video[]>>((acc, v) => {
-    (acc[v.subject ?? "Matematika"] ??= []).push(v);
-    return acc;
-  }, {});
-
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <header className="max-w-2xl">
-        <p className="text-xs uppercase tracking-widest text-brand">Video kutubxona</p>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Video darslar</h1>
-        <p className="mt-3 text-muted-foreground">
-          Fan va mavzu bo'yicha tartiblangan darslar. Har bir dars oxirida shu mavzu bo'yicha test ishlash mumkin.
-        </p>
-      </header>
-
-      {isLoading && (
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {[0, 1, 2].map((i) => (
-            <div key={i} className="h-44 animate-pulse rounded-2xl bg-secondary" />
-          ))}
-        </div>
-      )}
-
-      {!isLoading && (data ?? []).length === 0 && (
-        <p className="mt-10 rounded-2xl border border-border bg-card p-8 text-center text-sm text-muted-foreground">
-          Hozircha video darslar qo'shilmagan.
-        </p>
-      )}
-
-      {Object.entries(grouped).map(([subject, items]) => (
-        <section key={subject} className="mt-10">
-          <h2 className="text-lg font-semibold">{subject}</h2>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((v) => (
-              <Link
-                key={v.id}
-                to="/$subject/videos/$id"
-                params={{ subject, id: v.id }}
-                className="group overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-brand/50"
-              >
-                <div className="relative grid h-36 place-items-center bg-primary/10">
-                  {v.thumbnail_url ? (
-                    <img src={v.thumbnail_url} alt={v.title} className="h-36 w-full object-cover" />
-                  ) : (
-                    <PlayCircle className="h-10 w-10 text-brand" />
-                  )}
-                </div>
-                <div className="p-4">
-                  <div className="font-medium leading-snug">{v.title}</div>
-                  {v.description && (
-                    <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{v.description}</p>
-                  )}
-                  <div className="mt-3 flex items-center gap-3 text-[11px] text-muted-foreground">
-                    {v.topics?.title && <span>{v.topics.title}</span>}
-                    {v.duration_seconds ? (
-                      <span className="inline-flex items-center gap-1">
-                        <Clock className="h-3 w-3" /> {Math.round(v.duration_seconds / 60)} daq
-                      </span>
-                    ) : null}
-                    {v.pdf_url && (
-                      <span className="inline-flex items-center gap-1">
-                        <FileText className="h-3 w-3" /> PDF
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      ))}
-    </div>
+    <CourseCatalog eyebrow="Har bir dars — yangi imkoniyat" title="O'rganishga vaqt ajrating."
+      description="Qiziqishingizni bilimga aylantiring. Sizga mos kursni tanlang va o'z sur'atingizda o'rganing."
+      badge="Kurslar" courses={data} isLoading={isLoading} emptyText="Hozircha bepul kurslar qo'shilmagan." />
   );
 }
